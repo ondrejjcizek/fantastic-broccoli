@@ -1,6 +1,8 @@
 <script lang="ts">
+  import Header from '$components/Header.svelte';
   import { formatMe } from '$utils/FormatText';
 </script>
 
-<h1>Hello world!</h1>
-<p>{formatMe('Amy')}</p>
+<Header />
+
+{formatMe('Ondrej')}

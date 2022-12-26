@@ -2,6 +2,6 @@
   import '../app.css';
 </script>
 
-<div class="bg-red-500 p-4">
+<div class="overflow-hidden">
   <slot />
 </div>
