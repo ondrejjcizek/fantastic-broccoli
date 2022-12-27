@@ -1,1 +1,109 @@
-Invoices
+<script lang="ts">
+  import Search from '$components/Search.svelte';
+  import Tag from '$components/Tag.svelte';
+  import View from '$components/Icon/View.svelte';
+  import ThreeDots from '$components/Icon/ThreeDots.svelte';
+  import CircledAmount from '$components/CircledAmount.svelte';
+</script>
+
+<svelte:head>
+  <title>Invoices | The Dollar Hollar</title>
+</svelte:head>
+
+<div
+  class="jusitfy-between mb-7 flex flex-col-reverse items-start gap-y-6 md:flex-row md:items-center md:gap-y-4 lg:mb-16"
+>
+  <Search />
+
+  <!-- new invoice button -->
+  <div>
+    <button
+      class="relative translate-y-0 whitespace-nowrap rounded-lg bg-lavenderIndigo px-5 py-2 font-sansSerif text-base font-black text-white shadow-colored transition-all hover:-translate-y-1 hover:shadow-coloredHovered lg:px-10 lg:py-3 lg:text-xl"
+      >+ Invoice</button
+    >
+  </div>
+</div>
+
+<!-- list of invoices -->
+<div>
+  <!-- hedaer -->
+  <div class="table-header invoice-table hidden text-daisyBush lg:grid">
+    <h3>Status</h3>
+    <h3>Due Date</h3>
+    <h3>ID</h3>
+    <h3>Client</h3>
+    <h3>Amount</h3>
+    <div />
+    <div />
+  </div>
+
+  <!-- invoices -->
+  <div
+    class="invoice-table invoice-area items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
+  >
+    <div class="status"><Tag className="ml-auto lg:ml-0" label="draft" /></div>
+    <div class="dueDate text-sm lg:text-lg">8/1/2022</div>
+    <div class="invoiceNumber text-sm lg:text-lg">12345</div>
+    <div class="clientName text-base font-bold lg:text-xl">Compressed.fm</div>
+    <div class="amount text-right font-mono text-sm font-bold lg:text-lg">$5040000.00</div>
+    <div class="center viewButton hidden text-sm lg:block lg:text-lg">
+      <a href="#" class="text-pastelPurple transition-colors hover:text-daisyBush">
+        <View />
+      </a>
+    </div>
+    <div class="center moreButton hidden text-sm lg:block lg:text-lg">
+      <button class="text-pastelPurple transition-colors hover:text-daisyBush">
+        <ThreeDots />
+      </button>
+    </div>
+  </div>
+</div>
+
+<CircledAmount label="Total" amount="$1.144.00" />
+
+<style lang="postcss">
+  .table-header h3 {
+    @apply text-xl font-black leading-snug;
+  }
+
+  .invoice-area {
+    grid-template-areas:
+      'invoiceNumber invoiceNumber'
+      'clientName amount'
+      'dueDate status';
+  }
+
+  @media (min-width: 1024px) {
+    .invoice-area {
+      grid-template-areas: 'status dueDate invoiceNumber clientName amount viewButton moreButton';
+    }
+  }
+
+  .invoice-area .status {
+    grid-area: status;
+  }
+
+  .invoice-area .dueDate {
+    grid-area: dueDate;
+  }
+
+  .invoice-area .invoiceNumber {
+    grid-area: invoiceNumber;
+  }
+
+  .invoice-area .clientName {
+    grid-area: clientName;
+  }
+
+  .invoice-area .amount {
+    grid-area: amount;
+  }
+
+  .invoice-area .viewButton {
+    grid-area: viewButton;
+  }
+
+  .invoice-area .moreButton {
+    grid-area: moreButton;
+  }
+</style>

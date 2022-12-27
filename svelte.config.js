@@ -17,7 +17,7 @@ const config = {
       postcss: true
     }),
     sveltePreprocess({
-      stylus: {
+      postcss: {
         // prependData: '@import "src/variables.styl"',
       }
     })

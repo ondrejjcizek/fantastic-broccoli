@@ -8,6 +8,17 @@ module.exports = {
       handwriting: ['Kalam', 'cursive']
     },
     extend: {
+      backgroundImage: {
+        circle: "url('/images/circle.svg')"
+      },
+      borderWidth: {
+        1: '1px'
+      },
+      boxShadow: {
+        colored: '0px 7px 16px #7f5bdc01',
+        coloredHovered: '0px 16px 25px #7f5bdc4d',
+        tableRow: '0px 0px 6px #00000029'
+      },
       colors: {
         lavenderIndigo: '#8657e1',
         daisyBush: '#4714a5',
@@ -24,6 +35,14 @@ module.exports = {
         gallery: '#efeaf2',
         caribbeanGreen: '#00ca9e',
         fog: '#decaec'
+      },
+      gridTemplateColumns: {
+        invoiceTable: '100px 100px 60px 1fr 116px 32px 32px',
+        invoiceTableMobile: '1fr 90px'
+      },
+      zIndex: {
+        navBarToggle: 91,
+        navBar: 90
       }
     }
   },

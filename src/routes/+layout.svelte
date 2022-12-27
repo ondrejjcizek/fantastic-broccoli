@@ -1,7 +1,7 @@
-<script lang="ts">
+<script>
   import '../app.css';
 </script>
 
-<div class="overflow-hidden">
+<div>
   <slot />
 </div>
