@@ -2,17 +2,30 @@
   import ThreeDots from '$components/Icon/ThreeDots.svelte';
   import View from '$components/Icon/View.svelte';
   import Tag from '$components/Tag.svelte';
+  import { convertDate, isLate } from '$lib/utils/dateHelpers';
   import { sumLineItems, centsToDollars } from '$lib/utils/moneyHelpers';
   import type { Invoice } from 'src/global';
 
   export let invoice: Invoice;
+
+  const getInvoiceLabel = () => {
+    if (invoice.invoiceStatus === 'draft') {
+      return 'draft';
+    } else if (invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)) {
+      return 'sent';
+    } else if (invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)) {
+      return 'late';
+    } else if (invoice.invoiceStatus === 'paid') {
+      return 'paid';
+    }
+  };
 </script>
 
 <div
   class="invoice-table invoice-area items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
 >
-  <div class="status"><Tag className="ml-auto lg:ml-0" label={invoice.invoiceStatus} /></div>
-  <div class="dueDate text-sm lg:text-lg">{invoice.dueDate}</div>
+  <div class="status"><Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} /></div>
+  <div class="dueDate text-sm lg:text-lg">{convertDate(invoice.dueDate)}</div>
   <div class="invoiceNumber text-sm lg:text-lg">{invoice.invoiceNumber}</div>
   <div class="clientName truncate whitespace-nowrap text-base font-bold lg:text-xl">
     {invoice.client.name}
