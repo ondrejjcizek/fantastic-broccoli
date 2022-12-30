@@ -1,12 +1,30 @@
 <script lang="ts">
+  import AdditionalOptions from '$components/AdditionalOptions.svelte';
   import ThreeDots from '$components/Icon/ThreeDots.svelte';
   import View from '$components/Icon/View.svelte';
   import Tag from '$components/Tag.svelte';
   import { convertDate, isLate } from '$lib/utils/dateHelpers';
   import { sumLineItems, centsToDollars } from '$lib/utils/moneyHelpers';
   import type { Invoice } from 'src/global';
+  import Send from '$components/Icon/Send.svelte';
+  import Trash from '$components/Icon/Trash.svelte';
+  import Edit from '$components/Icon/Edit.svelte';
 
   export let invoice: Invoice;
+  let isAdditionalMenuShowing = false;
+  let isOptionsDisabled = false;
+
+  const handleDelete = () => {
+    console.log('deleting');
+  };
+
+  const handleEdit = () => {
+    console.log('editing');
+  };
+
+  const handleSendInvoice = () => {
+    console.log('sending');
+  };
 
   const getInvoiceLabel = () => {
     if (invoice.invoiceStatus === 'draft') {
@@ -33,15 +51,29 @@
   <div class="amount text-right font-mono text-sm font-bold lg:text-lg">
     ${centsToDollars(sumLineItems(invoice.lineItems))}
   </div>
-  <div class="center viewButton hidden text-sm lg:block lg:text-lg">
+  <div class="center viewButton hidden text-sm lg:flex lg:text-lg">
     <a href="#" class="text-pastelPurple transition-colors hover:text-daisyBush">
       <View />
     </a>
   </div>
-  <div class="center moreButton hidden text-sm lg:block lg:text-lg">
-    <button class="text-pastelPurple transition-colors hover:text-daisyBush">
+  <div class="center moreButton relative hidden text-sm lg:flex lg:text-lg">
+    <button
+      class="text-pastelPurple transition-colors hover:text-daisyBush"
+      on:click={() => {
+        isAdditionalMenuShowing = !isAdditionalMenuShowing;
+      }}
+    >
       <ThreeDots />
     </button>
+    {#if isAdditionalMenuShowing}
+      <AdditionalOptions
+        options={[
+          { label: 'Edit', icon: Edit, onClick: handleEdit, disabled: isOptionsDisabled },
+          { label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
+          { label: 'Send', icon: Send, onClick: handleSendInvoice, disabled: isOptionsDisabled }
+        ]}
+      />
+    {/if}
   </div>
 </div>
 

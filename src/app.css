@@ -2,6 +2,7 @@
 
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
 
 @layer base {
   body {
@@ -19,10 +20,8 @@
   }
 }
 
-.center {
-  @apply flex items-center justify-center;
-}
-
-@tailwind utilities;
 @layer utilities {
+  .center {
+    @apply flex items-center justify-center;
+  }
 }
