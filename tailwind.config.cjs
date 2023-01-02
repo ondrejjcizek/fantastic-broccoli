@@ -34,7 +34,8 @@ module.exports = {
         silver: '#c0c0c0',
         gallery: '#efeaf2',
         caribbeanGreen: '#00ca9e',
-        fog: '#decaec'
+        fog: '#decaec',
+        darkBroccoli: '#314b24'
       },
       gridTemplateColumns: {
         invoiceTable: '100px 100px 60px 1fr 116px 32px 32px',
@@ -47,4 +48,4 @@ module.exports = {
     }
   },
   plugins: []
-};
+}

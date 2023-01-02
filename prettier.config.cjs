@@ -8,5 +8,5 @@
     printWidth: 100
     // pluginSearchDirs: ["."],
     // overrides: [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
-  };
+  }
 }

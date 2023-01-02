@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { page } from '$app/stores';
-  import Close from '$components/Icon/Close.svelte';
-  import Hamburger from '$components/Icon/Hamburger.svelte';
+  import { page } from '$app/stores'
+  import Close from '$components/Icon/Close.svelte'
+  import Hamburger from '$components/Icon/Hamburger.svelte'
 
-  let isNavShowing = false;
+  let isNavShowing = false
 </script>
 
 <svelte:head>
@@ -20,9 +20,9 @@
 <button
   class="fixed right-6 top-6 z-navBarToggle md:hidden"
   class:text-goldenFizz={isNavShowing}
-  class:text-daisyBush={!isNavShowing}
+  class:text-darkBroccoli={!isNavShowing}
   on:click={() => {
-    isNavShowing = !isNavShowing;
+    isNavShowing = !isNavShowing
   }}
 >
   {#if isNavShowing}
@@ -33,18 +33,19 @@
 </button>
 
 <header
-  class="fixed z-navBar h-screen w-full -translate-x-full bg-daisyBush text-center transition-transform md:relative md:col-span-3 md:h-full md:translate-x-0"
+  class="fixed z-navBar h-screen w-full -translate-x-full bg-darkBroccoli text-center transition-transform md:relative md:col-span-3 md:h-full md:translate-x-0"
   class:translate-x-0={isNavShowing}
 >
   <div>
     <div class="mx-auto mt-10 mb-10 max-w-[50%] md:mb-24">
       <a href="/invoices">
         <img src="/images/logo.svg" alt="Fantastic Broccoli" class="mx-auto" />
+        <img src="/images/fantastic-broccoli.svg" alt="Fantastic Broccoli" class="mx-auto" />
       </a>
     </div>
   </div>
   <nav>
-    <ul class="list-none text-lg font-bold md:text-2xl">
+    <ul class="Header list-none text-lg font-bold md:text-2xl">
       <li>
         <a href="/invoices" class:active={$page.url.pathname === '/invoices'}>Faktury</a>
       </li>

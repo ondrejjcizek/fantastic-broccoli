@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { invoices, loadInvoices } from '$lib/stores/InvoiceStore';
-  import { onMount } from 'svelte';
-  import Search from '$components/Search.svelte';
-  import CircledAmount from '$components/CircledAmount.svelte';
-  import InvoiceRow from './InvoiceRow.svelte';
-  import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
+  import { invoices, loadInvoices } from '$lib/stores/InvoiceStore'
+  import { onMount } from 'svelte'
+  import Search from '$components/Search.svelte'
+  import CircledAmount from '$components/CircledAmount.svelte'
+  import InvoiceRow from './InvoiceRow.svelte'
+  import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers'
 
   onMount(() => {
-    loadInvoices();
-    console.log($invoices);
-  });
+    loadInvoices()
+    console.log($invoices)
+  })
 </script>
 
 <svelte:head>
-  <title>Invoices | The Dollar Hollar</title>
+  <title>Faktury | Fantastic Broccoli</title>
 </svelte:head>
 
 <div
@@ -33,7 +33,7 @@
 <!-- list of invoices -->
 <div>
   <!-- hedaer -->
-  <div class="table-header invoice-table hidden text-daisyBush lg:grid">
+  <div class="table-header invoice-table hidden text-darkBroccoli lg:grid">
     <h3>Status</h3>
     <h3>Due Date</h3>
     <h3>ID</h3>

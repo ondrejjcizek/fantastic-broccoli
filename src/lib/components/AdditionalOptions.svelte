@@ -1,30 +1,29 @@
 <script lang="ts">
-  import View from './Icon/View.svelte';
+  import type { SvelteComponent } from 'svelte';
   export let options: {
     label: string;
-    icon?: string;
+    icon?: new (...args: any[]) => SvelteComponent;
     disabled: boolean;
     onClick: () => void;
-  };
+  }[];
 </script>
 
 <ul class="absolute left-0 top-4 rounded-lg bg-white shadow-lg">
-  <li>
-    <button
-      class="flex w-full gap-x-2 p-4 font-sansSerif font-bold text-pastelPurple hover:text-daisyBush "
-    >
-      <View />
-      Send
-    </button>
-  </li>
-  <li>
-    <button
-      class="flex w-full gap-x-2 p-4 font-sansSerif font-bold text-pastelPurple hover:text-daisyBush "
-    >
-      <View />
-      Send
-    </button>
-  </li>
+  {#each options as option}
+    {#if !option.disabled}
+      <li>
+        <button
+          class="flex w-full gap-x-2 p-4 font-sansSerif font-bold text-pastelPurple hover:text-darkBroccoli"
+          on:click={option.onClick}
+        >
+          {#if option.icon}
+            <svelte:component this={option.icon} />
+          {/if}
+          {option.label}
+        </button>
+      </li>
+    {/if}
+  {/each}
 </ul>
 
 <style lang="postcss">
