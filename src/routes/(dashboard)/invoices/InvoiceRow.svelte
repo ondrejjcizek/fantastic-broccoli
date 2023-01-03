@@ -1,50 +1,53 @@
 <script lang="ts">
-  import AdditionalOptions from '$components/AdditionalOptions.svelte'
-  import ThreeDots from '$components/Icon/ThreeDots.svelte'
-  import View from '$components/Icon/View.svelte'
-  import Tag from '$components/Tag.svelte'
-  import { convertDate, isLate } from '$lib/utils/dateHelpers'
-  import { sumLineItems, centsToDollars } from '$lib/utils/moneyHelpers'
-  import type { Invoice } from 'src/global'
-  import Send from '$components/Icon/Send.svelte'
-  import Trash from '$components/Icon/Trash.svelte'
-  import Edit from '$components/Icon/Edit.svelte'
+  import AdditionalOptions from '$components/AdditionalOptions.svelte';
+  import ThreeDots from '$components/Icon/ThreeDots.svelte';
+  import View from '$components/Icon/View.svelte';
+  import Tag from '$components/Tag.svelte';
+  import { convertDate, isLate } from '$lib/utils/dateHelpers';
+  import { sumLineItems, centsToDollars } from '$lib/utils/moneyHelpers';
+  import type { Invoice } from 'src/global';
+  import Send from '$components/Icon/Send.svelte';
+  import Trash from '$components/Icon/Trash.svelte';
+  import Edit from '$components/Icon/Edit.svelte';
+  import Modal from '$components/Modal.svelte';
+  import Button from '$components/Button.svelte';
+  import { deleteInvoice } from '$lib/stores/InvoiceStore';
 
-  export let invoice: Invoice
-  let isAdditionalMenuShowing = false
-  let isOptionsDisabled = false
+  export let invoice: Invoice;
+  let isAdditionalMenuShowing = false;
+  let isOptionsDisabled = false;
+  let isModalShowing = false;
 
   const handleDelete = () => {
-    console.log('deleting')
-  }
+    isModalShowing = true;
+    isAdditionalMenuShowing = false;
+  };
 
   const handleEdit = () => {
-    console.log('editing')
-  }
+    console.log('editing');
+  };
 
   const handleSendInvoice = () => {
-    console.log('sending')
-  }
+    console.log('sending');
+  };
 
   const getInvoiceLabel = () => {
     if (invoice.invoiceStatus === 'draft') {
-      return 'draft'
+      return 'draft';
     } else if (invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)) {
-      isOptionsDisabled = true
-      return 'sent'
+      isOptionsDisabled = true;
+      return 'sent';
     } else if (invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)) {
-      isOptionsDisabled = true
-      return 'late'
+      isOptionsDisabled = true;
+      return 'late';
     } else if (invoice.invoiceStatus === 'paid') {
-      isOptionsDisabled = true
-      return 'paid'
+      isOptionsDisabled = true;
+      return 'paid';
     }
-  }
+  };
 </script>
 
-<div
-  class="invoice-table invoice-area items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
->
+<div class="invoice-table invoice-area items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
   <div class="status"><Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} /></div>
   <div class="dueDate text-sm lg:text-lg">{convertDate(invoice.dueDate)}</div>
   <div class="invoiceNumber text-sm lg:text-lg">{invoice.invoiceNumber}</div>
@@ -63,7 +66,7 @@
     <button
       class="text-pastelPurple transition-colors hover:text-darkBroccoli"
       on:click={() => {
-        isAdditionalMenuShowing = !isAdditionalMenuShowing
+        isAdditionalMenuShowing = !isAdditionalMenuShowing;
       }}
     >
       <ThreeDots />
@@ -79,6 +82,38 @@
     {/if}
   </div>
 </div>
+
+<Modal
+  isVisible={isModalShowing}
+  on:close={() => {
+    isModalShowing = false;
+  }}
+>
+  <div class="flex h-full min-h-[175px] flex-col items-center justify-between gap-6">
+    <div class="text-center text-xl font-bold text-darkBroccoli">
+      Are you sure you want to delete <span class="text-scarlet">{invoice.client.name}</span> for <span class="text-scarlet">${centsToDollars(sumLineItems(invoice.lineItems))}</span>?
+    </div>
+    <div class="flex gap-4">
+      <Button
+        isAnimated={false}
+        label="Cancel"
+        onClick={() => {
+          isModalShowing = false;
+        }}
+        style="secondary"
+      />
+      <Button
+        isAnimated={false}
+        label="Yes, Delete It"
+        onClick={() => {
+          deleteInvoice(invoice);
+          isModalShowing = false;
+        }}
+        style="desctructive"
+      />
+    </div>
+  </div>
+</Modal>
 
 <style lang="postcss">
   .invoice-area {

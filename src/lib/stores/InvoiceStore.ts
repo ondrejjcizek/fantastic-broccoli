@@ -8,3 +8,8 @@ export const loadInvoices = () => {
   invoices.set(data.invoices);
   // invoices.set([]);
 };
+
+export const deleteInvoice = (invoiceToDelete: Invoice) => {
+  invoices.update((prev: Invoice[]) => prev.filter((cur: Invoice) => cur.id !== invoiceToDelete.id));
+  return invoiceToDelete;
+};

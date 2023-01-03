@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { page } from '$app/stores'
-  import Close from '$components/Icon/Close.svelte'
-  import Hamburger from '$components/Icon/Hamburger.svelte'
+  import { page } from '$app/stores';
+  import Close from '$components/Icon/Close.svelte';
+  import Hamburger from '$components/Icon/Hamburger.svelte';
 
-  let isNavShowing = false
+  let isNavShowing = false;
 </script>
 
 <svelte:head>
@@ -22,7 +22,7 @@
   class:text-goldenFizz={isNavShowing}
   class:text-darkBroccoli={!isNavShowing}
   on:click={() => {
-    isNavShowing = !isNavShowing
+    isNavShowing = !isNavShowing;
   }}
 >
   {#if isNavShowing}
@@ -40,23 +40,22 @@
     <div class="mx-auto mt-10 mb-10 max-w-[50%] md:mb-24">
       <a href="/invoices">
         <img src="/images/logo.svg" alt="Fantastic Broccoli" class="mx-auto" />
-        <img src="/images/fantastic-broccoli.svg" alt="Fantastic Broccoli" class="mx-auto" />
       </a>
     </div>
   </div>
   <nav>
     <ul class="Header list-none text-lg font-bold md:text-2xl">
       <li>
-        <a href="/invoices" class:active={$page.url.pathname === '/invoices'}>Faktury</a>
+        <a href="/invoices" class:active={$page.url.pathname === '/invoices'}>Invoices</a>
       </li>
       <li>
-        <a href="/clients" class:active={$page.url.pathname === '/clients'}>Klienti</a>
+        <a href="/clients" class:active={$page.url.pathname === '/clients'}>Clients</a>
       </li>
       <li>
-        <a href="#">Nastavení</a>
+        <a href="#">Settings</a>
       </li>
       <li>
-        <a href="#">Odhlásit</a>
+        <a href="#">Logout</a>
       </li>
     </ul>
   </nav>

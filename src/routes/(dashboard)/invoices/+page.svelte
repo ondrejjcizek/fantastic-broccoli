@@ -7,7 +7,7 @@
   import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelpers';
   import BlankState from './BlankState.svelte';
   import InvoiceRowHeader from './InvoiceRowHeader.svelte';
-  import Portal from '$components/Portal.svelte';
+  import Button from '$components/Button.svelte';
 
   onMount(() => {
     loadInvoices();
@@ -16,12 +16,10 @@
 </script>
 
 <svelte:head>
-  <title>Faktury | Fantastic Broccoli</title>
+  <title>Invoices | Fantastic Broccoli</title>
 </svelte:head>
 
-<div
-  class="mb-7 flex flex-col-reverse items-start justify-between gap-y-6 md:flex-row md:items-center md:gap-y-4 lg:mb-16"
->
+<div class="mb-7 flex flex-col-reverse items-start justify-between gap-y-6 md:flex-row md:items-center md:gap-y-4 lg:mb-16">
   <!-- search field -->
   {#if $invoices.length > 0}
     <Search />
@@ -31,17 +29,12 @@
 
   <!-- new invoice button -->
   <div>
-    <button
-      class="relative translate-y-0 whitespace-nowrap rounded-lg bg-lavenderIndigo px-5 py-2 font-sansSerif text-base font-black text-white shadow-colored transition-all hover:-translate-y-1 hover:shadow-coloredHovered lg:px-10 lg:py-3 lg:text-xl"
-      >+ Invoice</button
-    >
+    <Button label="+ Invoice" onClick={() => {}} />
   </div>
 </div>
 
 <!-- list of invoices -->
 <div>
-  <Portal><div>Invoice Form</div></Portal>
-
   <!-- invoices -->
   {#if $invoices === null}
     Loading ...
