@@ -2,7 +2,7 @@
   import type { SvelteComponent } from 'svelte';
   export let label: string;
   export let onClick: () => void;
-  export let style: 'primary' | 'secondary' | 'desctructive' | 'outline' | 'textOnly' = 'primary';
+  export let style: 'primary' | 'secondary' | 'desctructive' | 'outline' | 'textOnly' | 'textOnlyDesctructive' = 'primary';
   export let isAnimated = true;
   export let iconLeft: (new (...args: any[]) => SvelteComponent) | null = null;
   export let iconRight: (new (...args: any[]) => SvelteComponent) | null = null;
@@ -17,6 +17,7 @@
   class:desctructive={style === 'desctructive'}
   class:outline={style === 'outline'}
   class:textOnly={style === 'textOnly'}
+  class:textOnlyDesctructive={style === 'textOnlyDesctructive'}
 >
   {#if iconLeft}
     <svelte:component this={iconLeft} class="mr-2" />
@@ -44,11 +45,15 @@
     @apply bg-scarlet text-goldenFizz;
   }
 
-  .outline {
-    @apply border-darkBroccoli text-darkBroccoli hover:bg-darkBroccoli hover:text-white;
+  .textOnly {
+    @apply bg-transparent px-0 text-lavenderIndigo no-underline hover:underline;
   }
 
-  .textOnly {
+  .textOnlyDesctructive {
     @apply bg-transparent px-0 text-scarlet underline hover:no-underline;
+  }
+
+  .outline {
+    @apply border-darkBroccoli text-darkBroccoli hover:bg-darkBroccoli hover:text-white;
   }
 </style>
