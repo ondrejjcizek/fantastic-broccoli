@@ -19,6 +19,7 @@ module.exports = {
       boxShadow: {
         colored: '0px 7px 16px #7f5bdc01',
         coloredHovered: '0px 16px 25px #7f5bdc4d',
+        slidePanel: '-4px 0px 44px rgba(0, 0, 0, 0.25)',
         tableRow: '0px 0px 6px #00000029'
       },
       colors: {
@@ -46,7 +47,8 @@ module.exports = {
       },
       zIndex: {
         modal: 999,
-        overlay: 998,
+        slidePanel: 998,
+        overlay: 997,
         navBarToggle: 91,
         navBar: 90
       }
