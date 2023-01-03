@@ -9,9 +9,13 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        circle: "url('/images/circle.svg')",
         arrowRightUp: "url('/images/arrow-right-up.svg')",
-        arrowLeftUp: "url('/images/arrow-left-up.svg')"
+        arrowLeftUp: "url('/images/arrow-left-up.svg')",
+        chevronDown: "url('/images/chevron-down.svg')",
+        circle: "url('/images/circle.svg')"
+      },
+      backgroundPosition: {
+        'right-center': '97% center'
       },
       borderWidth: {
         1: '1px'
