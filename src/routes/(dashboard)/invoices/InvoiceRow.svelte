@@ -32,39 +32,39 @@
   };
 
   const getInvoiceLabel = () => {
-    if (invoice.invoiceStatus === 'draft') {
-      return 'draft';
-    } else if (invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)) {
+    if (invoice.invoiceStatus === 'koncept') {
+      return 'koncept';
+    } else if (invoice.invoiceStatus === 'odesláno' && !isLate(invoice.dueDate)) {
       isOptionsDisabled = true;
-      return 'sent';
-    } else if (invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)) {
+      return 'odesláno';
+    } else if (invoice.invoiceStatus === 'odesláno' && isLate(invoice.dueDate)) {
       isOptionsDisabled = true;
-      return 'late';
-    } else if (invoice.invoiceStatus === 'paid') {
+      return 'neuhrazeno';
+    } else if (invoice.invoiceStatus === 'uhrazeno') {
       isOptionsDisabled = true;
-      return 'paid';
+      return 'uhrazeno';
     }
   };
 </script>
 
 <div class="invoice-table invoice-area items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
-  <div class="status"><Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} /></div>
+  <div class="status min-w-[400px]"><Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} /></div>
   <div class="dueDate text-sm lg:text-lg">{convertDate(invoice.dueDate)}</div>
   <div class="invoiceNumber text-sm lg:text-lg">{invoice.invoiceNumber}</div>
-  <div class="clientName truncate whitespace-nowrap text-base font-bold lg:text-xl">
+  <div class="clientName truncate whitespace-nowrap text-base font-bold">
     {invoice.client.name}
   </div>
-  <div class="amount text-right font-mono text-sm font-bold lg:text-lg">
-    ${centsToDollars(sumLineItems(invoice.lineItems))}
+  <div class="amount text-md whitespace-nowrap text-right font-mono font-bold">
+    {centsToDollars(sumLineItems(invoice.lineItems))} Kč
   </div>
   <div class="center viewButton hidden text-sm lg:flex lg:text-lg">
-    <a href="#" class="text-pastelPurple transition-colors hover:text-darkBroccoli">
+    <a href="#" class="text-pastelPurple transition-colors hover:text-daisyBush">
       <View />
     </a>
   </div>
   <div class="center moreButton relative hidden text-sm lg:flex lg:text-lg">
     <button
-      class="text-pastelPurple transition-colors hover:text-darkBroccoli"
+      class="text-pastelPurple transition-colors hover:text-daisyBush"
       on:click={() => {
         isAdditionalMenuShowing = !isAdditionalMenuShowing;
       }}
@@ -74,9 +74,9 @@
     {#if isAdditionalMenuShowing}
       <AdditionalOptions
         options={[
-          { label: 'Edit', icon: Edit, onClick: handleEdit, disabled: isOptionsDisabled },
-          { label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
-          { label: 'Send', icon: Send, onClick: handleSendInvoice, disabled: isOptionsDisabled }
+          { label: 'Upravit', icon: Edit, onClick: handleEdit, disabled: isOptionsDisabled },
+          { label: 'Smazat', icon: Trash, onClick: handleDelete, disabled: false },
+          { label: 'Odeslat', icon: Send, onClick: handleSendInvoice, disabled: isOptionsDisabled }
         ]}
       />
     {/if}
@@ -90,13 +90,13 @@
   }}
 >
   <div class="flex h-full min-h-[175px] flex-col items-center justify-between gap-6">
-    <div class="text-center text-xl font-bold text-darkBroccoli">
-      Are you sure you want to delete <span class="text-scarlet">{invoice.client.name}</span> for <span class="text-scarlet">${centsToDollars(sumLineItems(invoice.lineItems))}</span>?
+    <div class="text-center text-xl font-bold text-daisyBush">
+      Chcete opravdu smazat fakturu od klienta <span class="text-scarlet">{invoice.client.name}</span> s částkou <span class="text-scarlet">${centsToDollars(sumLineItems(invoice.lineItems))}</span>?
     </div>
     <div class="flex gap-4">
       <Button
         isAnimated={false}
-        label="Cancel"
+        label="Zavřít"
         onClick={() => {
           isModalShowing = false;
         }}
@@ -104,7 +104,7 @@
       />
       <Button
         isAnimated={false}
-        label="Yes, Delete It"
+        label="Ano, vymazat"
         onClick={() => {
           deleteInvoice(invoice);
           isModalShowing = false;

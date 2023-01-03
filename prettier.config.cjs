@@ -5,7 +5,7 @@
     useTabs: false,
     singleQuote: true,
     trailingComma: 'none',
-    printWidth: 200
+    printWidth: 500
     // pluginSearchDirs: ["."],
     // overrides: [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
   };

@@ -21,10 +21,7 @@
     <Overlay />
     <div class="center fixed inset-0 z-modal">
       <div class="relative min-h-[230px] w-full max-w-[450px] rounded bg-white px-10 py-7">
-        <button
-          on:click={() => dispatch('close')}
-          class="absolute right-4 top-4 text-pastelPurple hover:text-darkBroccoli"
-        >
+        <button on:click={() => dispatch('close')} class="absolute right-4 top-4 text-pastelPurple hover:text-daisyBush">
           <Cancel />
         </button>
         <slot><!-- optional fallback --></slot>

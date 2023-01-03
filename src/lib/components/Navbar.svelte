@@ -20,7 +20,7 @@
 <button
   class="fixed right-6 top-6 z-navBarToggle md:hidden"
   class:text-goldenFizz={isNavShowing}
-  class:text-darkBroccoli={!isNavShowing}
+  class:text-daisyBush={!isNavShowing}
   on:click={() => {
     isNavShowing = !isNavShowing;
   }}
@@ -32,30 +32,29 @@
   {/if}
 </button>
 
-<header
-  class="fixed z-navBar h-screen w-full -translate-x-full bg-darkBroccoli text-center transition-transform md:relative md:col-span-3 md:h-full md:translate-x-0"
-  class:translate-x-0={isNavShowing}
->
+<header class="fixed z-navBar h-screen w-full -translate-x-full bg-daisyBush text-center transition-transform md:relative md:col-span-3 md:h-full md:translate-x-0" class:translate-x-0={isNavShowing}>
   <div>
     <div class="mx-auto mt-10 mb-10 max-w-[50%] md:mb-24">
       <a href="/invoices">
-        <img src="/images/logo.svg" alt="Fantastic Broccoli" class="mx-auto" />
+        <div class="-rotate-[31deg]">
+          <img src="/images/logo.svg" alt="Fantastic Broccoli" class="mx-auto" />
+        </div>
       </a>
     </div>
   </div>
   <nav>
     <ul class="Header list-none text-lg font-bold md:text-2xl">
       <li>
-        <a href="/invoices" class:active={$page.url.pathname === '/invoices'}>Invoices</a>
+        <a href="/invoices" class:active={$page.url.pathname === '/invoices'}>Faktury</a>
       </li>
       <li>
-        <a href="/clients" class:active={$page.url.pathname === '/clients'}>Clients</a>
+        <a href="/clients" class:active={$page.url.pathname === '/clients'}>Klienti</a>
       </li>
       <li>
-        <a href="#">Settings</a>
+        <a href="#">Nastavení</a>
       </li>
       <li>
-        <a href="#">Logout</a>
+        <a href="#">Odhlásit</a>
       </li>
     </ul>
   </nav>
@@ -72,8 +71,7 @@
 
   nav ul li a.active {
     @apply px-8 text-robinEggBlue transition-[padding];
-    background: url('/images/active-nav--left.svg') left top no-repeat,
-      url('/images/active-nav--right.svg') right top no-repeat;
+    background: url('/images/active-nav--left.svg') left top no-repeat, url('/images/active-nav--right.svg') right top no-repeat;
   }
 
   nav ul li a.active:hover {

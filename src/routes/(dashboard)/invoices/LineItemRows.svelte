@@ -24,11 +24,11 @@
   $: total = twoDecimals(parseInt(subtotal) - parseInt(discountedAmount));
 </script>
 
-<div class="invoice-line-item border-b-2 border-darkBroccoli pb-2">
-  <div class="table-header">Description</div>
-  <div class="table-header text-right">Unit Price</div>
-  <div class="table-header text-center">Qty</div>
-  <div class="table-header text-right">Amount</div>
+<div class="invoice-line-item border-b-2 border-daisyBush pb-2">
+  <div class="table-header">Položka</div>
+  <div class="table-header text-right">Cena</div>
+  <div class="table-header text-center">Jednotka</div>
+  <div class="table-header text-right">Množství</div>
 </div>
 
 {#if lineItems}
@@ -40,7 +40,7 @@
 <div class="invoice-line-item">
   <div class="col-span-2">
     <Button
-      label="+ Line Item"
+      label="Přidat položky"
       style="textOnly"
       isAnimated={false}
       onClick={() => {
@@ -48,21 +48,14 @@
       }}
     />
   </div>
-  <div class="py-5 text-right font-bold text-monsoon">Subtotal</div>
+  <div class="py-5 text-right font-bold text-monsoon">Celkem</div>
   <div class="py-5 text-right font-mono">${subtotal}</div>
 </div>
 
 <div class="invoice-line-item">
-  <div class="col-span-2 py-5 text-right font-bold text-monsoon">Discount</div>
+  <div class="col-span-2 py-5 text-right font-bold text-monsoon">Sleva</div>
   <div class="relative">
-    <input
-      class="line-item h-10 w-full border-b-2 border-dashed border-stone-300 pr-4 text-right focus:border-solid focus:border-lavenderIndigo focus:outline-none"
-      type="number"
-      name="discount"
-      min="0"
-      max="100"
-      bind:value={discount}
-    />
+    <input class="line-item h-10 w-full border-b-2 border-dashed border-stone-300 pr-4 text-right focus:border-solid focus:border-lavenderIndigo focus:outline-none" type="number" name="discount" min="0" max="100" bind:value={discount} />
     <span class="absolute right-0 top-2 font-mono">%</span>
   </div>
   <div class="py-5 text-right font-mono">${discountedAmount}</div>
@@ -70,12 +63,12 @@
 
 <div class="invoice-line-item">
   <div class="col-span-6">
-    <CircledAmount label="Total:" amount={`$${total}`} />
+    <CircledAmount label="Celkem:" amount={`$${total}`} />
   </div>
 </div>
 
 <style lang="postcss">
   .table-header {
-    @apply text-sm font-bold text-darkBroccoli;
+    @apply text-sm font-bold text-daisyBush;
   }
 </style>

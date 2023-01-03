@@ -15,7 +15,7 @@
       "dueDate": "2022-07-31",
       "id": "1",
       "invoiceNumber": "12345",
-      "invoiceStatus": "draft",
+      "invoiceStatus": "koncept",
       "issueDate": "2022-07-01",
       "lineItems": [
         {
@@ -50,7 +50,7 @@
       "dueDate": "2022-07-06",
       "id": "2",
       "invoiceNumber": "12352",
-      "invoiceStatus": "draft",
+      "invoiceStatus": "koncept",
       "issueDate": "2022-07-08",
       "lineItems": [
         {
@@ -82,7 +82,7 @@
       "dueDate": "2022-10-06",
       "id": "6",
       "invoiceNumber": "12346",
-      "invoiceStatus": "paid",
+      "invoiceStatus": "uhrazeno",
       "issueDate": "2022-07-01",
       "lineItems": [
         {
@@ -114,7 +114,7 @@
       "dueDate": "2022-06-06",
       "id": "7",
       "invoiceNumber": "12347",
-      "invoiceStatus": "sent",
+      "invoiceStatus": "odesláno",
       "issueDate": "2022-07-01",
       "lineItems": [
         {
@@ -140,7 +140,7 @@
       "dueDate": "2022-10-06",
       "id": "5",
       "invoiceNumber": "12348",
-      "invoiceStatus": "sent",
+      "invoiceStatus": "odesláno",
       "issueDate": "2022-07-06",
       "lineItems": [
         {

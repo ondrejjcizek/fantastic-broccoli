@@ -34,7 +34,7 @@
   <!-- new invoice button -->
   <div>
     <Button
-      label="+ Invoice"
+      label="Přidat fakturu"
       onClick={() => {
         isInvoiceFormShowing = true;
       }}
@@ -50,13 +50,13 @@
   {:else if $invoices.length <= 0}
     <BlankState />
   {:else}
-    <InvoiceRowHeader className="text-darkBroccoli" />
+    <InvoiceRowHeader className="text-daisyBush" />
     <div class="flex flex-col-reverse">
       {#each $invoices as invoice}
         <InvoiceRow {invoice} />
       {/each}
     </div>
-    <CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
+    <CircledAmount label="Celkem" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
   {/if}
 </div>
 

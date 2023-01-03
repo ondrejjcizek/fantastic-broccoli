@@ -12,10 +12,7 @@
   {#each options as option}
     {#if !option.disabled}
       <li>
-        <button
-          class="flex w-full items-center gap-x-2 p-4 font-sansSerif font-bold text-pastelPurple hover:text-darkBroccoli"
-          on:click={option.onClick}
-        >
+        <button class="flex w-full items-center gap-x-2 p-4 font-sansSerif font-bold text-pastelPurple hover:text-daisyBush" on:click={option.onClick}>
           {#if option.icon}
             <svelte:component this={option.icon} />
           {/if}

@@ -3,11 +3,11 @@
 </script>
 
 <div class={`table-header invoice-table hidden lg:grid ${className}`}>
-  <h3>Status</h3>
-  <h3>Due Date</h3>
-  <h3>ID</h3>
-  <h3>Client</h3>
-  <h3 class="text-right">Amount</h3>
+  <h3>Stav</h3>
+  <h3>Splatnost</h3>
+  <h3>#</h3>
+  <h3>Klient</h3>
+  <h3 class="text-right">Cena</h3>
   <div />
   <div />
 </div>

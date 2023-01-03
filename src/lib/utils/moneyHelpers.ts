@@ -20,7 +20,8 @@ export const sumLineItems = (lineItems: LineItem[] | undefined): number => {
 export const centsToDollars = (cents: number): string => {
   const dollars = cents / 100;
   const addDecimals = twoDecimals(dollars);
-  return addThousandsSeparator(addDecimals);
+  const addSeparator = addThousandsSeparator(addDecimals);
+  return addSeparator.replace('.', ',');
 };
 
 /**
@@ -50,7 +51,7 @@ export const twoDecimals = (myNum: number): string => {
  */
 
 export const addThousandsSeparator = (myNum: string): string => {
-  return myNum.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return myNum.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 };
 
 /**
