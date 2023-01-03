@@ -7,12 +7,12 @@
 
   const blankLineItem = {
     id: uuidv4(),
-    description: 'sadgasug dsa gas',
-    quantity: 4,
-    amount: 100
+    description: '',
+    quantity: 0,
+    amount: 0
   };
 
-  let lineItems: LineItem[] = [blankLineItem];
+  let lineItems: LineItem[] = [{ ...blankLineItem }];
 
   const AddLineItem = () => {
     lineItems = [...lineItems, { ...blankLineItem, id: uuidv4() }];
