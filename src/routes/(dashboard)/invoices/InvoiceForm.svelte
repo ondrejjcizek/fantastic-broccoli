@@ -1,16 +1,27 @@
 <script lang="ts">
+  import { v4 as uuidv4 } from 'uuid';
   import Button from '$components/Button.svelte';
   import Trash from '$components/Icon/Trash.svelte';
+  import type { LineItem } from 'src/global';
   import LineItemRows from './LineItemRows.svelte';
 
-  const blankLineItem = [
-    {
-      id: '1',
-      deescription: '',
-      quantity: 0,
-      amount: 0
-    }
-  ];
+  const blankLineItem = {
+    id: uuidv4(),
+    description: 'sadgasug dsa gas',
+    quantity: 4,
+    amount: 100
+  };
+
+  let lineItems: LineItem[] = [blankLineItem];
+
+  const AddLineItem = () => {
+    lineItems = [...lineItems, { ...blankLineItem, id: uuidv4() }];
+  };
+
+  const RemoveLineItem = (event) => {
+    lineItems = lineItems.filter((item) => item.id !== event.detail);
+    console.log('remove line item');
+  };
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-darkBroccoli">Add an Invoice</h2>
@@ -54,7 +65,7 @@
 
   <!-- line items -->
   <div class="field col-span-6">
-    <LineItemRows lineItems={blankLineItem} />
+    <LineItemRows {lineItems} on:addLineItem={AddLineItem} on:removeLineItem={RemoveLineItem} />
   </div>
 
   <!-- notes -->
