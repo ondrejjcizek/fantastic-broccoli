@@ -6,6 +6,7 @@
 
   export let lineItem: LineItem;
   export let canDelete: boolean = false;
+  export let isRequired: boolean = false;
 
   let unitPrice: string = twoDecimals(lineItem.amount / lineItem.quantity);
   let amount: string = twoDecimals(lineItem.amount);
@@ -20,7 +21,7 @@
 
 <div class="invoice-line-item border-b-2 border-fog py-2">
   <div>
-    <input class="line-item" type="text" name="description" bind:value={lineItem.description} />
+    <input class="line-item" type="text" name="description" bind:value={lineItem.description} required={isRequired} />
   </div>
 
   <div>
@@ -34,7 +35,9 @@
       on:blur={() => {
         unitPrice = twoDecimals(Number(unitPrice));
         dispatch('updateLineItem');
+        101;
       }}
+      required={isRequired}
     />
   </div>
 
@@ -48,6 +51,7 @@
       on:blur={() => {
         dispatch('updateLineItem');
       }}
+      required={isRequired}
     />
   </div>
 

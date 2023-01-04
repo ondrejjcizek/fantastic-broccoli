@@ -37,7 +37,7 @@
     } else if (invoice.invoiceStatus === 'odesláno' && !isLate(invoice.dueDate)) {
       isOptionsDisabled = true;
       return 'odesláno';
-    } else if (invoice.invoiceStatus === 'odesláno' && isLate(invoice.dueDate)) {
+    } else if (invoice.invoiceStatus === 'neuhrazeno' && isLate(invoice.dueDate)) {
       isOptionsDisabled = true;
       return 'neuhrazeno';
     } else if (invoice.invoiceStatus === 'uhrazeno') {

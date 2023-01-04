@@ -8,6 +8,7 @@
   import LineItemRows from './LineItemRows.svelte';
   import { states } from '$utils/states';
   import { onMount } from 'svelte';
+  import { today } from '$lib/utils/dateHelpers';
 
   const blankLineItem = {
     id: uuidv4(),
@@ -79,8 +80,8 @@
 
   <!-- invoice id -->
   <div class="field col-span-2">
-    <label for="id">Číslo faktury</label>
-    <input class="p-4" type="number" name="id" />
+    <label for="invoiceNumber">Číslo faktury</label>
+    <input class="p-4" type="number" name="invoiceNumber" required />
   </div>
 
   <!-- new client -->
@@ -120,13 +121,13 @@
   <!-- due date -->
   <div class="field col-span-2">
     <label for="dueDate">Splatnost</label>
-    <input class="p-4" type="date" name="dueDate" />
+    <input class="p-4" type="date" name="dueDate" min={today} required />
   </div>
 
   <!-- issue date -->
   <div class="field col-span-2 col-start-5">
     <label for="issueDate">Vystaveno</label>
-    <input class="p-4" type="date" name="issueDate" />
+    <input class="p-4" type="date" name="issueDate" min={today} />
   </div>
 
   <!-- subject -->
@@ -142,7 +143,12 @@
 
   <div class="field col-span-6">
     <label for="subject">Text za položkami faktury</label>
-    <input class="p-4" type="text" name="subject" placeholder="Dovolujeme si Vás upozornit, že v případně nedodržení data splatnosti uvedeného na faktuře Vám můžeme účtovat zákonný úrok z prodlení." />
+    <input
+      class="p-4"
+      type="text"
+      name="subject"
+      placeholder="Dovolujeme si Vás upozornit, že v případně nedodržení data splatnosti uvedeného na faktuře Vám můžeme účtovat zákonný úrok z prodlení."
+    />
   </div>
 
   <!-- notes -->
@@ -167,7 +173,7 @@
   </div>
   <div class="field col-span-4 flex justify-end gap-x-5">
     <Button style="secondary" label="Zavřít" isAnimated={false} onClick={() => {}} />
-    <Button label="Uložit" onClick={() => {}} />
+    <button class="button translate-y-0 bg-lavenderIndigo text-white shadow-colored transition-all hover:-translate-y-1 hover:shadow-coloredHovered" type="submit">Uložit</button>
   </div>
 </form>
 

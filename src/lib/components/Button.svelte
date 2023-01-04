@@ -8,7 +8,17 @@
   export let iconRight: (new (...args: any[]) => SvelteComponent) | null = null;
 </script>
 
-<button on:click|preventDefault={() => onClick()} class="relative flex items-center whitespace-nowrap rounded-lg px-5 py-2 font-sansSerif text-base font-black lg:px-10 lg:py-3 lg:text-xl" class:isAnimated class:primary={style === 'primary'} class:secondary={style === 'secondary'} class:desctructive={style === 'desctructive'} class:outline={style === 'outline'} class:textOnly={style === 'textOnly'} class:textOnlyDesctructive={style === 'textOnlyDesctructive'}>
+<button
+  on:click|preventDefault={() => onClick()}
+  class="button"
+  class:isAnimated
+  class:primary={style === 'primary'}
+  class:secondary={style === 'secondary'}
+  class:desctructive={style === 'desctructive'}
+  class:outline={style === 'outline'}
+  class:textOnly={style === 'textOnly'}
+  class:textOnlyDesctructive={style === 'textOnlyDesctructive'}
+>
   {#if iconLeft}
     <svelte:component this={iconLeft} class="mr-2" />
   {/if}

@@ -1,4 +1,6 @@
-import { isBefore } from 'date-fns';
+import { isBefore, format } from 'date-fns';
+
+export const today = format(new Date(), 'yyyy-MM-dd');
 
 /**
  * This takes yyyy-mm-dd and returns m-d-yyy
@@ -30,7 +32,7 @@ export const isLate = (myDate: string): boolean => {
 
 /**
  * Takes a date yyyy-mm-dd and splits it into an array
- * @param {string} myDate 
+ * @param {string} myDate
  * @returns {Array} [yyy, mm, dd]
  */
 

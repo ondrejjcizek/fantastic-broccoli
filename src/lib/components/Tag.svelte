@@ -3,7 +3,13 @@
   export let className = '';
 </script>
 
-<div class={`w-fit rounded-full border-1 p-1 px-[8px] text-center text-sm font-semibold capitalize ${className}`} class:inverted={label === 'koncept'} class:success={label === 'odesláno' || label === 'aktuální'} class:alert={label === 'neuhrazeno'} class:archive={label === 'uhrazeno' || label === 'archiv'}>
+<div
+  class={`w-fit rounded-full border-1 p-1 px-[8px] text-center text-sm font-semibold capitalize ${className}`}
+  class:inverted={label === 'koncept'}
+  class:success={label === 'odesláno' || label === 'aktuální'}
+  class:alert={label === 'neuhrazeno'}
+  class:archive={label === 'uhrazeno' || label === 'archiv'}
+>
   {label}
 </div>
 
