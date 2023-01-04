@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { clients, loadClients } from '$lib/stores/ClientStore';
   import { slide } from 'svelte/transition';
   import { v4 as uuidv4 } from 'uuid';
   import Button from '$components/Button.svelte';
@@ -6,6 +7,7 @@
   import type { LineItem } from 'src/global';
   import LineItemRows from './LineItemRows.svelte';
   import { states } from '$utils/states';
+  import { onMount } from 'svelte';
 
   const blankLineItem = {
     id: uuidv4(),
@@ -29,6 +31,10 @@
   const UpdateLineItem = () => {
     lineItems = lineItems;
   };
+
+  onMount(() => {
+    loadClients();
+  });
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Vytvořit fakturu</h2>
@@ -40,7 +46,9 @@
       <label for="client">Klient</label>
       <div class="flex items-end gap-x-5">
         <select name="client" id="client">
-          <option value="zeal">Giant</option>
+          {#each $clients as client}
+            <option value={client.id}>{client.name}</option>
+          {/each}
         </select>
         <div class="text-base font-bold leading-[3.5rem] text-monsoon">nebo</div>
         <Button
