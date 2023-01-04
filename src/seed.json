@@ -147,7 +147,7 @@
       "issueDate": "2022-07-01",
       "lineItems": [
         {
-          "amount": 5000000,
+          "amount": 5000,
           "description": "Website Design",
           "id": "4",
           "quantity": 1
@@ -173,7 +173,7 @@
       "issueDate": "2022-07-06",
       "lineItems": [
         {
-          "amount": 1000000,
+          "amount": 10000,
           "description": "Website Development",
           "id": "1",
           "quantity": 1
