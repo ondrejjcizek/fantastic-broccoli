@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { clients, loadClients } from '$lib/stores/ClientStore';
+    import { addClient, clients, loadClients } from '$lib/stores/ClientStore';
     import { slide } from 'svelte/transition';
     import { v4 as uuidv4 } from 'uuid';
     import Button from '$components/Button.svelte';
@@ -9,6 +9,7 @@
     import { states } from '$utils/states';
     import { onMount } from 'svelte';
     import { today } from '$lib/utils/dateHelpers';
+    import { addInvoice } from '$lib/stores/InvoiceStore';
 
     const blankLineItem = {
         id: uuidv4(),
@@ -20,13 +21,16 @@
     let lineItems: LineItem[] = [{ ...blankLineItem }];
     let isNewClient: boolean = false;
 
-    // As a magic arrayy of ts, must be types as whole
+    // As a magic array of TS, must be types as whole
     let invoice: Invoice = {
         client: {} as Client,
         lineItems: [{ ...blankLineItem }] as LineItem[]
     } as Invoice;
-    // As a magic arrayy of ts, must be types as whole
-    let newClient: Client = {} as Client;
+
+    // As a magic array of TS, must be types as whole
+    let newClient: Partial<Client> = {};
+
+    export let closePanel: () => void = () => {};
 
     const AddLineItem = () => {
         invoice.lineItems = [...(invoice.lineItems as []), { ...blankLineItem, id: uuidv4() }];
@@ -42,8 +46,15 @@
         invoice.lineItems = invoice.lineItems;
     };
 
-    const handleSUbmit = () => {
-        console.log({ invoice, newClient });
+    const handleSubmit = () => {
+        if (isNewClient) {
+            invoice.client = newClient as Client;
+            addClient(newClient as Client);
+        }
+
+        addInvoice(invoice);
+
+        closePanel();
     };
 
     onMount(() => {
@@ -53,7 +64,7 @@
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Vytvořit fakturu</h2>
 
-<form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSUbmit}>
+<form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSubmit}>
     <!-- client -->
     <div class="field col-span-4">
         {#if !isNewClient}
@@ -64,6 +75,13 @@
                     id="client"
                     required={!isNewClient}
                     bind:value={invoice.client.id}
+                    on:change={() => {
+                        const selectedClient = $clients.find(
+                            (client) => client.id === invoice.client.id
+                        );
+                        invoice.client.name =
+                            selectedClient?.name !== undefined ? selectedClient.name : '';
+                    }}
                 >
                     <option />
                     {#each $clients as client}
@@ -75,6 +93,8 @@
                     label="Přidat klienta"
                     onClick={() => {
                         isNewClient = true;
+                        invoice.client.name = '';
+                        invoice.client.email = '';
                     }}
                     style="outline"
                     isAnimated={false}
@@ -94,6 +114,7 @@
                     label="Existující klient"
                     onClick={() => {
                         isNewClient = false;
+                        newClient = {};
                     }}
                     style="outline"
                     isAnimated={false}
@@ -195,6 +216,7 @@
     <!-- line items -->
     <div class="field col-span-6">
         <LineItemRows
+            discount={invoice.discount}
             lineItems={invoice.lineItems}
             on:addLineItem={AddLineItem}
             on:removeLineItem={RemoveLineItem}
@@ -248,14 +270,17 @@
         />
     </div>
     <div class="field col-span-4 flex justify-end gap-x-5">
-        <Button style="secondary" label="Zavřít" isAnimated={false} onClick={() => {}} />
+        <Button
+            style="secondary"
+            label="Zavřít"
+            isAnimated={false}
+            onClick={() => {
+                closePanel();
+            }}
+        />
         <button
             class="button translate-y-0 bg-lavenderIndigo text-white shadow-colored transition-all hover:-translate-y-1 hover:shadow-coloredHovered"
             type="submit">Uložit</button
         >
     </div>
 </form>
-
-<style lang="postcss">
-    /* your styles go here */
-</style>

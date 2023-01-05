@@ -8,7 +8,7 @@
 
     let subtotal: string = '0.00';
 
-    let discount: number;
+    export let discount: number = 0;
     let discountedAmount: string = '0.00';
     let total: string = '0.00';
 

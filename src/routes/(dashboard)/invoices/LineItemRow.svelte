@@ -80,8 +80,9 @@
                     dispatch('removeLineItem', lineItem.id);
                 }}
                 class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"
-                ><Trash /></button
             >
+                <Trash />
+            </button>
         {/if}
     </div>
 </div>

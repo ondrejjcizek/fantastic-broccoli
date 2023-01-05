@@ -5,11 +5,17 @@ import data from '../../seed.json';
 export const invoices = writable<Invoice[]>([]);
 
 export const loadInvoices = () => {
-  invoices.set(data.invoices);
-  // invoices.set([]);
+    invoices.set(data.invoices as Invoice[]);
+};
+
+export const addInvoice = (invoiceToAdd: Invoice) => {
+    invoices.update((prev: Invoice[]) => [...prev, invoiceToAdd]);
+    return invoiceToAdd;
 };
 
 export const deleteInvoice = (invoiceToDelete: Invoice) => {
-  invoices.update((prev: Invoice[]) => prev.filter((cur: Invoice) => cur.id !== invoiceToDelete.id));
-  return invoiceToDelete;
+    invoices.update((prev: Invoice[]) =>
+        prev.filter((cur: Invoice) => cur.id !== invoiceToDelete.id)
+    );
+    return invoiceToDelete;
 };
