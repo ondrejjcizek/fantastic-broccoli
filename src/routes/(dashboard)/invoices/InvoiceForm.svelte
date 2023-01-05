@@ -11,6 +11,7 @@
     import { today } from '$lib/utils/dateHelpers';
     import { addInvoice, updateInvoice } from '$lib/stores/InvoiceStore';
     import ConfirmDelete from './ConfirmDelete.svelte';
+    import { snackbar } from '$lib/stores/SnackbarStore';
 
     const blankLineItem = {
         id: uuidv4(),
@@ -63,6 +64,7 @@
 
         if (formState === 'create') {
             addInvoice(invoice);
+            snackbar.send({ message: 'Vaše faktura byla úspéšně vytvořena', type: 'success' });
         }
 
         closePanel();
