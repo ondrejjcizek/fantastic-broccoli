@@ -4,7 +4,7 @@
     import View from '$components/Icon/View.svelte';
     import Tag from '$components/Tag.svelte';
     import { convertDate, isLate } from '$lib/utils/dateHelpers';
-    import { addThousandsSeparator, sumLineItems } from '$lib/utils/moneyHelpers';
+    import { addThousandsSeparator, invoiceTotal, sumLineItems } from '$lib/utils/moneyHelpers';
     import type { Invoice } from 'src/global';
     import Send from '$components/Icon/Send.svelte';
     import Trash from '$components/Icon/Trash.svelte';
@@ -62,7 +62,7 @@
         {invoice.client.name}
     </div>
     <div class="amount text-md whitespace-nowrap text-right font-mono font-bold">
-        {addThousandsSeparator(sumLineItems(invoice.lineItems))} Kč
+        {addThousandsSeparator(invoiceTotal(invoice.lineItems, invoice.discount))} Kč
     </div>
     <div class="center viewButton hidden text-sm lg:flex lg:text-lg">
         <a href="#" class="text-pastelPurple transition-colors hover:text-daisyBush">
