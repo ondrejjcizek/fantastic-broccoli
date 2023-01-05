@@ -87,11 +87,12 @@
 
 <form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSubmit}>
     <!-- client -->
-    <div class="field col-span-4">
+    <div class="field col-span-6 md:col-span-4">
         {#if !isNewClient}
             <label for="client">Klient</label>
-            <div class="flex items-end gap-x-5">
+            <div class="flex flex-wrap items-end gap-x-2 sm:flex-nowrap md:gap-x-5">
                 <select
+                    class="mb-2 sm:mb-0"
                     name="client"
                     id="client"
                     required={!isNewClient}
@@ -109,7 +110,9 @@
                         <option value={client.id}>{client.name}</option>
                     {/each}
                 </select>
-                <div class="text-base font-bold leading-[3.5rem] text-monsoon">nebo</div>
+                <div class="text-base font-bold leading-[2.25rem] text-monsoon lg:leading-[3.5rem]">
+                    nebo
+                </div>
                 <Button
                     label="Přidat klienta"
                     onClick={() => {
@@ -123,14 +126,15 @@
             </div>
         {:else}
             <label for="NewClient">Nový klient</label>
-            <div class="flex items-end gap-x-5">
+            <div class="flex flex-wrap items-end gap-x-2 sm:flex-nowrap md:gap-x-5">
                 <input
+                    class="mb-2 sm:mb-0"
                     type="text"
                     name="newClient"
                     required={isNewClient}
                     bind:value={newClient.name}
                 />
-                <div class="text-base font-bold leading-[3.5rem]">nebo</div>
+                <div class="text-base font-bold leading-[2.25rem] lg:leading-[3.5rem]">nebo</div>
                 <Button
                     label="Existující klient"
                     onClick={() => {
@@ -145,7 +149,7 @@
     </div>
 
     <!-- invoice id -->
-    <div class="field col-span-2">
+    <div class="field col-span-6 row-start-1 md:col-span-2 md:row-start-auto">
         <label for="invoiceNumber">Číslo faktury</label>
         <input
             class="p-4"
@@ -204,7 +208,7 @@
     {/if}
 
     <!-- due date -->
-    <div class="field col-span-2">
+    <div class="field col-span-3 sm:col-span-2">
         <label for="dueDate">Splatnost</label>
         <input
             class="p-4"
@@ -217,7 +221,7 @@
     </div>
 
     <!-- issue date -->
-    <div class="field col-span-2 col-start-5">
+    <div class="field col-span-3 md:col-span-2 md:col-start-5">
         <label for="issueDate">Vystaveno</label>
         <input
             class="p-4"

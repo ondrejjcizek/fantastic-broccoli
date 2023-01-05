@@ -53,7 +53,7 @@
 <div
     class="invoice-table invoice-area items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
 >
-    <div class="status min-w-[400px]">
+    <div class="status lg:min-w-[400px]">
         <Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} />
     </div>
     <div class="dueDate text-sm lg:text-lg">{convertDate(invoice.dueDate)}</div>
@@ -61,15 +61,15 @@
     <div class="clientName truncate whitespace-nowrap text-base font-bold">
         {invoice.client.name}
     </div>
-    <div class="amount text-md whitespace-nowrap text-right font-mono font-bold">
+    <div class="amount whitespace-nowrap text-right font-mono text-sm font-bold">
         {addThousandsSeparator(invoiceTotal(invoice.lineItems, invoice.discount))} Kč
     </div>
-    <div class="center viewButton hidden text-sm lg:flex lg:text-lg">
+    <div class="viewButton hidden items-center  justify-center text-sm lg:flex lg:text-lg">
         <a href="#" class="text-pastelPurple transition-colors hover:text-daisyBush">
             <View />
         </a>
     </div>
-    <div class="center moreButton relative hidden text-sm lg:flex lg:text-lg">
+    <div class="moreButton relative hidden items-center justify-center text-sm lg:flex lg:text-lg">
         <button
             class="text-pastelPurple transition-colors hover:text-daisyBush"
             on:click={() => {

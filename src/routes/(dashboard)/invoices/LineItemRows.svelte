@@ -45,9 +45,9 @@
 {/if}
 
 <div class="invoice-line-item">
-    <div class="col-span-2">
+    <div class="col-span-1 sm:col-span-2">
         <Button
-            label="Přidat položky"
+            label="Přidat položku"
             style="textOnly"
             isAnimated={false}
             onClick={() => {
@@ -62,7 +62,7 @@
 </div>
 
 <div class="invoice-line-item">
-    <div class="col-span-2 py-5 text-right font-bold text-monsoon">Sleva</div>
+    <div class="col-span-1 py-5 text-right font-bold text-monsoon sm:col-span-2">Sleva</div>
     <div class="relative">
         <input
             class="line-item h-10 w-full border-b-2 border-dashed border-stone-300 pr-4 text-right focus:border-solid focus:border-lavenderIndigo focus:outline-none"
@@ -83,13 +83,13 @@
 </div>
 
 <div class="invoice-line-item">
-    <div class="col-span-6">
+    <div class="col-span-3 sm:col-span-6">
         <CircledAmount label="Celkem:" amount={`${total} Kč`} />
     </div>
 </div>
 
 <style lang="postcss">
     .table-header {
-        @apply text-sm font-bold text-daisyBush;
+        @apply hidden text-sm font-bold text-daisyBush sm:block;
     }
 </style>
