@@ -9,7 +9,8 @@
     import { states } from '$utils/states';
     import { onMount } from 'svelte';
     import { today } from '$lib/utils/dateHelpers';
-    import { addInvoice } from '$lib/stores/InvoiceStore';
+    import { addInvoice, updateInvoice } from '$lib/stores/InvoiceStore';
+    import ConfirmDelete from './ConfirmDelete.svelte';
 
     const blankLineItem = {
         id: uuidv4(),
@@ -22,7 +23,7 @@
     let isNewClient: boolean = false;
 
     // As a magic array of TS, must be types as whole
-    let invoice: Invoice = {
+    export let invoice: Invoice = {
         client: {} as Client,
         lineItems: [{ ...blankLineItem }] as LineItem[]
     } as Invoice;
@@ -30,7 +31,11 @@
     // As a magic array of TS, must be types as whole
     let newClient: Partial<Client> = {};
 
+    export let formState: 'create' | 'edit' = 'create';
+
     export let closePanel: () => void = () => {};
+
+    let isModalShowing = false;
 
     const AddLineItem = () => {
         invoice.lineItems = [...(invoice.lineItems as []), { ...blankLineItem, id: uuidv4() }];
@@ -50,9 +55,13 @@
         if (isNewClient) {
             invoice.client = newClient as Client;
             addClient(newClient as Client);
+        } else {
+            updateInvoice(invoice);
         }
 
-        addInvoice(invoice);
+        if (formState === 'create') {
+            addInvoice(invoice);
+        }
 
         closePanel();
     };
@@ -62,7 +71,13 @@
     });
 </script>
 
-<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Vytvořit fakturu</h2>
+<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">
+    {#if formState === 'create'}
+        Vytvořit fakturu
+    {:else}
+        Editace faktury
+    {/if}
+</h2>
 
 <form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSubmit}>
     <!-- client -->
@@ -261,13 +276,17 @@
     <!-- buttons -->
     <div class="field col-span-2">
         <!-- only be visible if editing -->
-        <Button
-            style="textOnlyDesctructive"
-            label="Smazat"
-            isAnimated={false}
-            onClick={() => {}}
-            iconLeft={Trash}
-        />
+        {#if formState === 'edit'}
+            <Button
+                style="textOnlyDesctructive"
+                label="Smazat"
+                isAnimated={false}
+                onClick={() => {
+                    isModalShowing = true;
+                }}
+                iconLeft={Trash}
+            />
+        {/if}
     </div>
     <div class="field col-span-4 flex justify-end gap-x-5">
         <Button
@@ -284,3 +303,12 @@
         >
     </div>
 </form>
+
+<ConfirmDelete
+    {invoice}
+    {isModalShowing}
+    on:close={() => {
+        isModalShowing = false;
+        closePanel();
+    }}
+/>

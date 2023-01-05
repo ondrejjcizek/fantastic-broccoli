@@ -9,14 +9,15 @@
     import Send from '$components/Icon/Send.svelte';
     import Trash from '$components/Icon/Trash.svelte';
     import Edit from '$components/Icon/Edit.svelte';
-    import Modal from '$components/Modal.svelte';
-    import Button from '$components/Button.svelte';
-    import { deleteInvoice } from '$lib/stores/InvoiceStore';
+    import SlidePanel from '$components/SlidePanel.svelte';
+    import InvoiceForm from './InvoiceForm.svelte';
+    import ConfirmDelete from './ConfirmDelete.svelte';
 
     export let invoice: Invoice;
     let isAdditionalMenuShowing = false;
     let isOptionsDisabled = false;
     let isModalShowing = false;
+    let isInvoiceFormShowing = false;
 
     const handleDelete = () => {
         isModalShowing = true;
@@ -25,6 +26,8 @@
 
     const handleEdit = () => {
         console.log('editing');
+        isInvoiceFormShowing = true;
+        isAdditionalMenuShowing = false;
     };
 
     const handleSendInvoice = () => {
@@ -97,41 +100,17 @@
     </div>
 </div>
 
-<Modal
-    isVisible={isModalShowing}
-    on:close={() => {
-        isModalShowing = false;
-    }}
->
-    <div class="flex h-full min-h-[175px] flex-col items-center justify-between gap-6">
-        <div class="text-center text-xl font-bold text-daisyBush">
-            Chcete opravdu smazat fakturu od klienta <span class="text-scarlet"
-                >{invoice.client.name}</span
-            >
-            s částkou
-            <span class="text-scarlet">${sumLineItems(invoice.lineItems)}</span>?
-        </div>
-        <div class="flex gap-4">
-            <Button
-                isAnimated={false}
-                label="Zavřít"
-                onClick={() => {
-                    isModalShowing = false;
-                }}
-                style="secondary"
-            />
-            <Button
-                isAnimated={false}
-                label="Ano, vymazat"
-                onClick={() => {
-                    deleteInvoice(invoice);
-                    isModalShowing = false;
-                }}
-                style="desctructive"
-            />
-        </div>
-    </div>
-</Modal>
+<ConfirmDelete {invoice} {isModalShowing} on:close={() => (isModalShowing = false)} />
+
+{#if isInvoiceFormShowing}
+    <SlidePanel
+        on:closePanel={() => {
+            isInvoiceFormShowing = false;
+        }}
+    >
+        <InvoiceForm formState="edit" {invoice} closePanel={() => (isInvoiceFormShowing = false)} />
+    </SlidePanel>
+{/if}
 
 <style lang="postcss">
     .invoice-area {
