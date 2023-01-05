@@ -7,31 +7,8 @@ import type { Invoice, LineItem } from 'src/global';
  */
 
 export const sumLineItems = (lineItems: LineItem[] | undefined): number => {
-  if (!lineItems) return 0;
-  return lineItems.reduce((prevValue, curValue) => prevValue + curValue.amount, 0);
-};
-
-/**
- * Takes and returns a dollar amount (USD), formatted with commas and 2 decimals places
- * @param {number} cents
- * @returns {string}
- */
-
-export const centsToDollars = (cents: number): string => {
-  // const dollars = cents / 100;
-  const addDecimals = twoDecimals(cents);
-  const addSeparator = addThousandsSeparator(addDecimals);
-  return addSeparator.replace('.', ',');
-};
-
-/**
- * Takes a dollar amount and converts it to cents
- * @param {number} dollars
- * @returns {number}
- */
-
-export const dollarsToCents = (dollars: number): number => {
-  return dollars * 1;
+    if (!lineItems) return 0;
+    return lineItems.reduce((prevValue, curValue) => prevValue + curValue.amount, 0);
 };
 
 /**
@@ -41,7 +18,7 @@ export const dollarsToCents = (dollars: number): number => {
  */
 
 export const twoDecimals = (myNum: number): string => {
-  return myNum.toFixed(0);
+    return myNum.toFixed(2);
 };
 
 /**
@@ -50,8 +27,11 @@ export const twoDecimals = (myNum: number): string => {
  * @returns {string}
  */
 
-export const addThousandsSeparator = (myNum: string): string => {
-  return myNum.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+export const addThousandsSeparator = (myNum: number): string => {
+    return myNum
+        .toFixed(2)
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+        .replace('.', ',');
 };
 
 /**
@@ -61,9 +41,9 @@ export const addThousandsSeparator = (myNum: string): string => {
  */
 
 export const sumInvoices = (invoices: Invoice[] | undefined): number => {
-  if (!invoices) return 0;
-  return invoices.reduce((prevValue, curValue) => {
-    const invoiceSum = sumLineItems(curValue.lineItems);
-    return prevValue + invoiceSum;
-  }, 0);
+    if (!invoices) return 0;
+    return invoices.reduce((prevValue, curValue) => {
+        const invoiceSum = sumLineItems(curValue.lineItems);
+        return prevValue + invoiceSum;
+    }, 0);
 };

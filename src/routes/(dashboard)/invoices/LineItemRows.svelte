@@ -4,9 +4,10 @@
     import CircledAmount from '$components/CircledAmount.svelte';
     import type { LineItem } from 'src/global';
     import LineItemRow from './LineItemRow.svelte';
-    import { centsToDollars, sumLineItems, twoDecimals } from '$lib/utils/moneyHelpers';
+    import { addThousandsSeparator, sumLineItems } from '$lib/utils/moneyHelpers';
 
     let subtotal: string = '0.00';
+
     let discount: number;
     let discountedAmount: string = '0.00';
     let total: string = '0.00';
@@ -15,13 +16,13 @@
     let dispatch = createEventDispatcher();
 
     $: if (sumLineItems(lineItems) > 0) {
-        subtotal = centsToDollars(sumLineItems(lineItems));
+        subtotal = String(sumLineItems(lineItems));
     }
     $: if (subtotal && discount) {
-        discountedAmount = centsToDollars(sumLineItems(lineItems) * (discount / 100));
+        discountedAmount = String(sumLineItems(lineItems) * (discount / 100));
     }
 
-    $: total = centsToDollars((parseInt(subtotal) - parseInt(discountedAmount)) * 1000);
+    $: total = addThousandsSeparator(Number(subtotal) - Number(discountedAmount));
 </script>
 
 <div class="invoice-line-item border-b-2 border-daisyBush pb-2">
@@ -33,7 +34,13 @@
 
 {#if lineItems}
     {#each lineItems as lineItem, index}
-        <LineItemRow {lineItem} on:removeLineItem canDelete={index > 0} on:updateLineItem isRequired={index === 0} />
+        <LineItemRow
+            {lineItem}
+            on:removeLineItem
+            canDelete={index > 0}
+            on:updateLineItem
+            isRequired={index === 0}
+        />
     {/each}
 {/if}
 
@@ -49,7 +56,9 @@
         />
     </div>
     <div class="py-5 text-right font-bold text-monsoon">Celkem</div>
-    <div class="whitespace-nowrap py-5 text-right font-mono">{subtotal} Kč</div>
+    <div class="whitespace-nowrap py-5 text-right font-mono">
+        {addThousandsSeparator(Number(subtotal))} Kč
+    </div>
 </div>
 
 <div class="invoice-line-item">
@@ -65,7 +74,9 @@
         />
         <span class="absolute right-0 top-2 font-mono">%</span>
     </div>
-    <div class="py-5 text-right font-mono">{discountedAmount} Kč</div>
+    <div class="whitespace-nowrap py-5 text-right font-mono">
+        {addThousandsSeparator(Number(discountedAmount))} Kč
+    </div>
 </div>
 
 <div class="invoice-line-item">
