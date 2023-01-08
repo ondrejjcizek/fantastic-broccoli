@@ -1,5 +1,5 @@
 ¨<svelte:head>
-    <title>THank You | Fanstastic Broccoli</title>
+    <title>Thank You | Fanstastic Broccoli</title>
 </svelte:head>
 
 <div class="center h-screen w-screen bg-thankYou bg-center bg-no-repeat">
