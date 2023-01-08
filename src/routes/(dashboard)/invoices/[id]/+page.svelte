@@ -3,9 +3,15 @@
     import { convertDate } from '$lib/utils/dateHelpers';
     import type { Invoice } from 'src/global';
     import LineItemRows from '../LineItemRows.svelte';
+    import { settings, loadSettings } from '$lib/stores/Settings';
+    import { onMount } from 'svelte';
 
     export let data: { invoice: Invoice };
     console.log({ data });
+
+    onMount(() => {
+        loadSettings();
+    });
 
     const printInvoice = () => {
         console.log('Print Invoice');
@@ -48,12 +54,23 @@
     </div>
 
     <div class="col-span-2 col-start-5 pt-4">
-        <div class="label">From</div>
-        <p>
-            Ondřej Čížek<br />
-            Střelskohoštická Lhota 46<br />
-            Straknice, 386 01
-        </p>
+        {#if $settings && $settings.myName}
+            <div class="label">From</div>
+            <p>
+                {$settings.myName}<br />
+                {#if $settings.city && $settings.state && $settings.zip}
+                    {$settings.street}<br />
+                    {$settings.city}, {$settings.state}
+                    {$settings.zip}
+                {/if}
+            </p>
+        {:else}
+            <div class="center min-h-[68px] rounded bg-gallery">
+                <a href="" class="text-stone-600 underline hover:no-underline"
+                    >Add your contact infromation.</a
+                >
+            </div>
+        {/if}
     </div>
 
     <div class="col-span-3">

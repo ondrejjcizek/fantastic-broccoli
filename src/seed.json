@@ -182,5 +182,13 @@
             ],
             "subject": "Website"
         }
-    ]
+    ],
+    "settings": {
+        "city": "Strakonice",
+        "email": "ondrejj.cizek@gmail.com",
+        "myName": "Ondřej Čížek",
+        "state": "CBK",
+        "street": "Střelskohošitcká Lhota 46",
+        "zip": "386 01"
+    }
 }
