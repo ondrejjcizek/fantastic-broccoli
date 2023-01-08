@@ -65,7 +65,10 @@
         {addThousandsSeparator(invoiceTotal(invoice.lineItems, invoice.discount))} Kč
     </div>
     <div class="viewButton hidden items-center  justify-center text-sm lg:flex lg:text-lg">
-        <a href="#" class="text-pastelPurple transition-colors hover:text-daisyBush">
+        <a
+            href={`/invoices/${invoice.id}`}
+            class="text-pastelPurple transition-colors hover:text-daisyBush"
+        >
             <View />
         </a>
     </div>
