@@ -7,10 +7,10 @@
     import { addThousandsSeparator, sumLineItems } from '$lib/utils/moneyHelpers';
 
     let subtotal: string = '0.00';
-
     export let discount: number = 0;
     let discountedAmount: string = '0.00';
     let total: string = '0.00';
+    export let isEditable = true;
 
     export let lineItems: LineItem[] | undefined = undefined;
     let dispatch = createEventDispatcher();
@@ -40,20 +40,23 @@
             canDelete={index > 0}
             on:updateLineItem
             isRequired={index === 0}
+            {isEditable}
         />
     {/each}
 {/if}
 
 <div class="invoice-line-item">
     <div class="col-span-1 sm:col-span-2">
-        <Button
-            label="Přidat položku"
-            style="textOnly"
-            isAnimated={false}
-            onClick={() => {
-                dispatch('addLineItem');
-            }}
-        />
+        {#if isEditable}
+            <Button
+                label="Přidat položku"
+                style="textOnly"
+                isAnimated={false}
+                onClick={() => {
+                    dispatch('addLineItem');
+                }}
+            />
+        {/if}
     </div>
     <div class="py-5 text-right font-bold text-monsoon">Celkem</div>
     <div class="whitespace-nowrap py-5 text-right font-mono">
@@ -70,6 +73,7 @@
             name="discount"
             min="0"
             max="100"
+            disabled={!isEditable}
             bind:value={discount}
             on:change={() => {
                 dispatch('updateDiscount', { discount });
