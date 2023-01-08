@@ -15,7 +15,7 @@
     });
 
     const printInvoice = () => {
-        console.log('Print Invoice');
+        window.print();
     };
 
     const copyLink = () => {
