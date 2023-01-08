@@ -6,9 +6,10 @@
     import { settings, loadSettings } from '$lib/stores/Settings';
     import { onMount } from 'svelte';
     import SvelteMarkdown from 'svelte-markdown';
+    import { page } from '$app/stores';
 
     export let data: { invoice: Invoice };
-    console.log({ data });
+    let copyLinkLabel = 'Copy Link';
 
     onMount(() => {
         loadSettings();
@@ -19,7 +20,12 @@
     };
 
     const copyLink = () => {
-        console.log('Copy Link');
+        navigator.clipboard.writeText($page.url.href);
+        copyLinkLabel = 'Copied!';
+
+        setTimeout(() => {
+            copyLinkLabel = 'Copy Link';
+        }, 1250);
     };
 
     const sendInvoice = () => {
@@ -41,7 +47,12 @@
             isAnimated={false}
             onClick={printInvoice}
         />
-        <Button height="short" label="Copy Link" onClick={copyLink} />
+        <Button
+            height="short"
+            label={copyLinkLabel}
+            onClick={copyLink}
+            className="min-w-[168px] justify-center"
+        />
         <Button height="short" label="Send" onClick={sendInvoice} />
         <Button height="short" label="Pay Invoice" onClick={payInvoice} />
     </div>
