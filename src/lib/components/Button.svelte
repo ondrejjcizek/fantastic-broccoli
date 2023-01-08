@@ -9,6 +9,7 @@
         | 'outline'
         | 'textOnly'
         | 'textOnlyDesctructive' = 'primary';
+    export let height: 'short' | 'regular' = 'regular';
     export let isAnimated = true;
     export let iconLeft: (new (...args: any[]) => SvelteComponent) | null = null;
     export let iconRight: (new (...args: any[]) => SvelteComponent) | null = null;
@@ -24,6 +25,7 @@
     class:outline={style === 'outline'}
     class:textOnly={style === 'textOnly'}
     class:textOnlyDesctructive={style === 'textOnlyDesctructive'}
+    class:short={height === 'short'}
 >
     {#if iconLeft}
         <div class="mr-2">
@@ -65,5 +67,9 @@
 
     .outline {
         @apply border-daisyBush text-daisyBush hover:bg-daisyBush hover:text-white;
+    }
+
+    .short {
+        @apply !py-1;
     }
 </style>

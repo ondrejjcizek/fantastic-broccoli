@@ -23,8 +23,9 @@ module.exports = {
             boxShadow: {
                 colored: '0px 7px 16px #7f5bdc01',
                 coloredHovered: '0px 16px 25px #7f5bdc4d',
+                invoice: '-4px 0px 44px rgba(0, 0, 0, 0.25)',
                 slidePanel: '-4px 0px 44px rgba(0, 0, 0, 0.25)',
-                tableRow: '0px 0px 6px #00000029'
+                tableRow: '0px 0px 6px #00000029',
             },
             colors: {
                 blueGem: '#3813a0',
