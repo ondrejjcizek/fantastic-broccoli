@@ -12,7 +12,8 @@ module.exports = {
                 arrowRightUp: "url('/images/arrow-right-up.svg')",
                 arrowLeftUp: "url('/images/arrow-left-up.svg')",
                 chevronDown: "url('/images/chevron-down.svg')",
-                circle: "url('/images/circle.svg')"
+                circle: "url('/images/circle.svg')",
+                thankYou: "url('/images/bg-thankYou.svg')"
             },
             backgroundPosition: {
                 'right-center': '97% center'
@@ -25,7 +26,7 @@ module.exports = {
                 coloredHovered: '0px 16px 25px #7f5bdc4d',
                 invoice: '-4px 0px 44px rgba(0, 0, 0, 0.25)',
                 slidePanel: '-4px 0px 44px rgba(0, 0, 0, 0.25)',
-                tableRow: '0px 0px 6px #00000029',
+                tableRow: '0px 0px 6px #00000029'
             },
             colors: {
                 blueGem: '#3813a0',
