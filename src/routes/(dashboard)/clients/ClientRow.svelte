@@ -9,10 +9,38 @@
     import Tag from '$components/Tag.svelte';
     import type { Client } from '../../../global';
     import { ClientStatus } from '../../../enums';
+    import { sumInvoices } from '$lib/utils/moneyHelpers';
 
     export let client: Client;
+    console.log({ client });
 
     let isAdditionalMenuShowing = false;
+
+    const recievedInvoices = () => {
+        // find invoices that have been paid
+        if (client?.invoices) {
+            const paidInvoices = client.invoices.filter(
+                (invoice) => invoice.invoiceStatus === 'uhrazeno'
+            );
+
+            // get the sum all of them
+            return sumInvoices(paidInvoices);
+        }
+        return 0;
+    };
+
+    const balanceInvoices = () => {
+        if (client?.invoices) {
+            // find invoices that have NOT been paid
+            const paidInvoices = client.invoices.filter(
+                (invoice) => invoice.invoiceStatus !== 'uhrazeno'
+            );
+
+            // get the sum all of them
+            return sumInvoices(paidInvoices);
+        }
+        return 0;
+    };
 </script>
 
 <div class="client-table client-row rounded-lg bg-white py-3 shadow-tableRow lg:py-6">
@@ -20,8 +48,12 @@
     <div class="client-name truncate whitespace-nowrap text-base font-bold lg:text-xl">
         {client.name}
     </div>
-    <div class="recieved text-right font-mono text-sm font-bold lg:text-lg">$500</div>
-    <div class="balance text-right font-mono text-sm font-bold text-scarlet lg:text-lg">$240</div>
+    <div class="recieved text-right font-mono text-sm font-bold lg:text-lg">
+        {recievedInvoices()} Kč
+    </div>
+    <div class="balance text-right font-mono text-sm font-bold text-scarlet lg:text-lg">
+        {balanceInvoices()} Kč
+    </div>
     <div class="view relative hidden items-center justify-center lg:flex">
         <a href="#" class="text-pastelPurple hover:text-daisyBush">
             <View />

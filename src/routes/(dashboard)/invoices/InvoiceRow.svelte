@@ -48,6 +48,8 @@
             return 'uhrazeno';
         }
     };
+
+    console.log(getInvoiceLabel());
 </script>
 
 <div
