@@ -4,7 +4,7 @@
     import { v4 as uuidv4 } from 'uuid';
     import Button from '$components/Button.svelte';
     import Trash from '$components/Icon/Trash.svelte';
-    import type { Client, Invoice, LineItem } from 'src/global';
+    import type { Client, Invoice, LineItem } from '../../../global';
     import LineItemRows from './LineItemRows.svelte';
     import { states } from '$utils/states';
     import { onMount } from 'svelte';

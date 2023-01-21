@@ -15,7 +15,7 @@
     <div>
         <div class="relative -top-12">
             <h2 class="mb-1 text-2xl font-black text-daisyBush">Sorry!</h2>
-            <p class="text-daisyBush">{$page.error.message}</p>
+            <p class="text-daisyBush">{$page.error?.message}</p>
         </div>
     </div>
 </div>

@@ -5,7 +5,7 @@
     import Tag from '$components/Tag.svelte';
     import { convertDate, isLate } from '$lib/utils/dateHelpers';
     import { addThousandsSeparator, invoiceTotal, sumLineItems } from '$lib/utils/moneyHelpers';
-    import type { Invoice } from 'src/global';
+    import type { Invoice } from '../../../global';
     import Send from '$components/Icon/Send.svelte';
     import Trash from '$components/Icon/Trash.svelte';
     import Edit from '$components/Icon/Edit.svelte';

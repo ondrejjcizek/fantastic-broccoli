@@ -3,8 +3,8 @@
 </script>
 
 <div class={`client-table hidden lg:grid ${className}`}>
-    <h3>Client</h3>
     <h3>Status</h3>
+    <h3>Client</h3>
     <h3 class="text-right">Recieved</h3>
     <h3 class="text-right">Balance</h3>
     <div />

@@ -4,7 +4,7 @@
     import { deleteInvoice } from '$lib/stores/InvoiceStore';
     import { snackbar } from '$lib/stores/SnackbarStore';
     import { sumLineItems } from '$lib/utils/moneyHelpers';
-    import type { Invoice } from 'src/global';
+    import type { Invoice } from '../../../global';
     import { createEventDispatcher } from 'svelte';
 
     export let invoice: Invoice;
