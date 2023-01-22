@@ -1,11 +1,11 @@
 import { writable } from 'svelte/store';
-import type { Client } from 'src/global';
+import type { Client } from '../../global';
 import data from '../../seed.json';
 
 export const clients = writable<Client[]>([]);
 
 export const loadClients = () => {
-    clients.set(data.clients);
+    clients.set(data.clients as Client[]);
 };
 
 export const addClient = (clientToAdd: Client) => {
