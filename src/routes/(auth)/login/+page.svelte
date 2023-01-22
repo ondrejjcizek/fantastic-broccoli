@@ -1,10 +1,14 @@
 <script lang="ts">
-    let email: string, password: string;
+    import Alert from '$components/Alert.svelte';
+    let email: string,
+        password: string,
+        alertMessage = 'Byli jste úspěšně odhlášeni!';
 </script>
 
 <h1 class="mb-4 text-[2.5rem] font-black text-goldenFizz">Přihlášení</h1>
 
 <form>
+    <Alert message={alertMessage} />
     <div class="field">
         <label for="email" class="text-goldenFizz">E-mail</label>
         <input type="email" name="email" placeholder="Váš E-mail" bind:value={email} />
