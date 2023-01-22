@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { clickOutside } from '$actions/ClickOutside';
     import AdditionalOptions from '$components/AdditionalOptions.svelte';
     import ThreeDots from '$components/Icon/ThreeDots.svelte';
     import View from '$components/Icon/View.svelte';
@@ -12,6 +13,7 @@
     import SlidePanel from '$components/SlidePanel.svelte';
     import InvoiceForm from './InvoiceForm.svelte';
     import ConfirmDelete from './ConfirmDelete.svelte';
+    import Cancel from '$components/Icon/Cancel.svelte';
 
     export let invoice: Invoice;
     let isAdditionalMenuShowing = false;
@@ -50,56 +52,89 @@
     };
 </script>
 
-<div
-    class="invoice-table invoice-area items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
->
-    <div class="status lg:min-w-[400px]">
-        <Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} />
-    </div>
-    <div class="dueDate text-sm lg:text-lg">{convertDate(invoice.dueDate)}</div>
-    <div class="invoiceNumber text-sm lg:text-lg">{invoice.invoiceNumber}</div>
-    <div class="clientName truncate whitespace-nowrap text-base font-bold">
-        {invoice.client.name}
-    </div>
-    <div class="amount whitespace-nowrap text-right font-mono text-sm font-bold">
-        {addThousandsSeparator(invoiceTotal(invoice.lineItems, invoice.discount))} Kč
-    </div>
-    <div class="viewButton hidden items-center  justify-center text-sm lg:flex lg:text-lg">
-        <a
-            href={`/invoices/${invoice.id}`}
-            class="text-pastelPurple transition-colors hover:text-daisyBush"
-        >
-            <View />
-        </a>
-    </div>
-    <div class="moreButton relative hidden items-center justify-center text-sm lg:flex lg:text-lg">
-        <button
-            class="text-pastelPurple transition-colors hover:text-daisyBush"
-            on:click={() => {
-                isAdditionalMenuShowing = !isAdditionalMenuShowing;
+<div class="relative">
+    <div
+        class="invoice-table invoice-area relative z-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
+    >
+        <div class="status lg:min-w-[400px]">
+            <Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} />
+        </div>
+        <div class="dueDate text-sm lg:text-lg">{convertDate(invoice.dueDate)}</div>
+        <div class="invoiceNumber text-sm lg:text-lg">{invoice.invoiceNumber}</div>
+        <div class="clientName truncate whitespace-nowrap text-base font-bold">
+            {invoice.client.name}
+        </div>
+        <div class="amount whitespace-nowrap text-right font-mono text-sm font-bold">
+            {addThousandsSeparator(invoiceTotal(invoice.lineItems, invoice.discount))} Kč
+        </div>
+        <div class="viewButton hidden items-center  justify-center text-sm lg:flex lg:text-lg">
+            <a
+                href={`/invoices/${invoice.id}`}
+                class="text-pastelPurple transition-colors hover:text-daisyBush"
+            >
+                <View />
+            </a>
+        </div>
+        <div
+            class="moreButton relative hidden items-center justify-center text-sm lg:flex lg:text-lg"
+            use:clickOutside={() => {
+                isAdditionalMenuShowing = false;
             }}
         >
-            <ThreeDots />
+            <button
+                class="text-pastelPurple transition-colors hover:text-daisyBush"
+                on:click={() => {
+                    isAdditionalMenuShowing = !isAdditionalMenuShowing;
+                }}
+            >
+                <ThreeDots />
+            </button>
+            {#if isAdditionalMenuShowing}
+                <AdditionalOptions
+                    options={[
+                        {
+                            label: 'Upravit',
+                            icon: Edit,
+                            onClick: handleEdit,
+                            disabled: isOptionsDisabled
+                        },
+                        { label: 'Smazat', icon: Trash, onClick: handleDelete, disabled: false },
+                        {
+                            label: 'Odeslat',
+                            icon: Send,
+                            onClick: handleSendInvoice,
+                            disabled: isOptionsDisabled
+                        }
+                    ]}
+                />
+            {/if}
+        </div>
+    </div>
+
+    <!-- swipe to reveal -->
+    <div class="absolute inset-0 z-rowActions flex h-full w-full items-center justify-around">
+        <button class="action-button">
+            <Cancel width={32} height={32} />
+            Cancel
         </button>
-        {#if isAdditionalMenuShowing}
-            <AdditionalOptions
-                options={[
-                    {
-                        label: 'Upravit',
-                        icon: Edit,
-                        onClick: handleEdit,
-                        disabled: isOptionsDisabled
-                    },
-                    { label: 'Smazat', icon: Trash, onClick: handleDelete, disabled: false },
-                    {
-                        label: 'Odeslat',
-                        icon: Send,
-                        onClick: handleSendInvoice,
-                        disabled: isOptionsDisabled
-                    }
-                ]}
-            />
+        {#if !isOptionsDisabled}
+            <button class="action-button" on:click={handleEdit}>
+                <Edit width={32} height={32} />
+                Edit
+            </button>
+            <button class="action-button" on:click={handleSendInvoice}>
+                <Send width={32} height={32} />
+                Send
+            </button>
         {/if}
+        <button class="action-button" on:click={handleDelete}>
+            <Trash width={32} height={32} />
+            Trash
+        </button>
+        <a href={`/invoices/${invoice.id}`} class="action-button">
+            <View width={32} height={32} />
+            View
+        </a>
     </div>
 </div>
 
@@ -116,6 +151,10 @@
 {/if}
 
 <style lang="postcss">
+    .action-button {
+        @apply flex cursor-pointer flex-col items-center justify-center font-bold text-daisyBush;
+    }
+
     .invoice-area {
         grid-template-areas:
             'invoiceNumber invoiceNumber'
