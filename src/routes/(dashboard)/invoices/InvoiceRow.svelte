@@ -14,6 +14,7 @@
     import InvoiceForm from './InvoiceForm.svelte';
     import ConfirmDelete from './ConfirmDelete.svelte';
     import Cancel from '$components/Icon/Cancel.svelte';
+    import { swipe } from '$actions/Swipe';
 
     export let invoice: Invoice;
     let isAdditionalMenuShowing = false;
@@ -55,6 +56,7 @@
 <div class="relative">
     <div
         class="invoice-table invoice-area relative z-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
+        use:swipe={() => {}}
     >
         <div class="status lg:min-w-[400px]">
             <Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} />
