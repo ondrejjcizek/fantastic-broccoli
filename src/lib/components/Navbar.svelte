@@ -54,7 +54,7 @@
                 <a href="/clients" class:active={$page.url.pathname === '/clients'}>Klienti</a>
             </li>
             <li>
-                <a href="#">Nastavení</a>
+                <a href="/settings" class:active={$page.url.pathname === '/settings'}>Nastavení</a>
             </li>
             <li>
                 <a href="#">Odhlásit</a>
