@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let label: 'koncept' | 'odesláno' | 'aktivní' | 'neuhrazeno' | 'uhrazeno' | 'archiv' =
+    export let label: 'koncept' | 'odeslano' | 'aktivni' | 'neuhrazeno' | 'uhrazeno' | 'archiv' =
         'koncept';
     export let className = '';
 </script>
@@ -7,7 +7,7 @@
 <div
     class={`w-fit rounded-full border-1 p-1 px-[8px] text-center text-sm font-semibold capitalize ${className}`}
     class:inverted={label === 'koncept'}
-    class:success={label === 'odesláno' || label === 'aktivní'}
+    class:success={label === 'odeslano' || label === 'aktivni'}
     class:alert={label === 'neuhrazeno'}
     class:archive={label === 'uhrazeno' || label === 'archiv'}
 >

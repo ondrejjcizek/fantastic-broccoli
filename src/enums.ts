@@ -1,11 +1,11 @@
 export enum InvoiceStatus {
-  draft = 'koncept',
-  sent = 'odesláno',
-  paid = 'uhrazeno',
-  unpaid = 'neuhrazeno'
+    draft = 'koncept',
+    sent = 'odeslano',
+    paid = 'uhrazeno',
+    unpaid = 'neuhrazeno'
 }
 
 export enum ClientStatus {
-  active = 'aktivní',
-  archived = 'archiv'
+    active = 'aktivni',
+    archived = 'archiv'
 }

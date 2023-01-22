@@ -1,4 +1,4 @@
-import type { Invoice } from 'src/global';
+import type { Invoice } from '../../global';
 import { writable } from 'svelte/store';
 import data from '../../seed.json';
 

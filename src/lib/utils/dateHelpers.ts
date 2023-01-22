@@ -9,12 +9,12 @@ export const today = format(new Date(), 'yyyy-MM-dd');
  */
 
 export const convertDate = (myDate: string): string => {
-  //break apart the date
-  //return it in the correct format
-  const [year, month, date] = splitDate(myDate);
+    //break apart the date
+    //return it in the correct format
+    const [year, month, date] = splitDate(myDate);
 
-  //   return `${parseInt(month)} / ${parseInt(date)} / ${parseInt(year)}`;
-  return `${month} / ${date} / ${year}`;
+    //   return `${parseInt(month)} / ${parseInt(date)} / ${parseInt(year)}`;
+    return `${month} / ${date} / ${year}`;
 };
 
 /**
@@ -24,10 +24,10 @@ export const convertDate = (myDate: string): string => {
  */
 
 export const isLate = (myDate: string): boolean => {
-  const [year, month, date] = splitDate(myDate);
-  const dueDate = new Date(parseInt(year), parseInt(month), parseInt(date));
-  const today = new Date();
-  return isBefore(dueDate, today);
+    const [year, month, date] = splitDate(myDate);
+    const dueDate = new Date(parseInt(year), parseInt(month), parseInt(date));
+    const today = new Date();
+    return isBefore(dueDate, today);
 };
 
 /**
@@ -37,5 +37,5 @@ export const isLate = (myDate: string): boolean => {
  */
 
 export const splitDate = (myDate: string): Array<string> => {
-  return myDate.split('-');
+    return myDate.split('-');
 };

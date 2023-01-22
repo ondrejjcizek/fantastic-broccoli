@@ -4,7 +4,7 @@
     import View from '$components/Icon/View.svelte';
     import Tag from '$components/Tag.svelte';
     import { convertDate, isLate } from '$lib/utils/dateHelpers';
-    import { addThousandsSeparator, invoiceTotal, sumLineItems } from '$lib/utils/moneyHelpers';
+    import { addThousandsSeparator, invoiceTotal } from '$lib/utils/moneyHelpers';
     import type { Invoice } from '../../../global';
     import Send from '$components/Icon/Send.svelte';
     import Trash from '$components/Icon/Trash.svelte';
@@ -37,9 +37,9 @@
     const getInvoiceLabel = () => {
         if (invoice.invoiceStatus === 'koncept') {
             return 'koncept';
-        } else if (invoice.invoiceStatus === 'odesláno' && !isLate(invoice.dueDate)) {
+        } else if (invoice.invoiceStatus === 'odeslano' && !isLate(invoice.dueDate)) {
             isOptionsDisabled = true;
-            return 'odesláno';
+            return 'odeslano';
         } else if (invoice.invoiceStatus === 'neuhrazeno' && isLate(invoice.dueDate)) {
             isOptionsDisabled = true;
             return 'neuhrazeno';
@@ -48,8 +48,6 @@
             return 'uhrazeno';
         }
     };
-
-    console.log(getInvoiceLabel());
 </script>
 
 <div

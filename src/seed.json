@@ -2,7 +2,7 @@
     "clients": [
         {
             "city": "Somewhereville",
-            "clientStatus": "aktivní",
+            "clientStatus": "aktivni",
             "email": "compressed@example.com",
             "id": "1",
             "invoices": [
@@ -11,7 +11,7 @@
                         "name": "Compressed.fm"
                     },
                     "createdAt": "2022-07-01",
-                    "discount": 10,
+                    "discount": 0,
                     "dueDate": "2022-07-31",
                     "id": "1",
                     "invoiceNumber": "12345",
@@ -108,7 +108,7 @@
         },
         {
             "city": "Anywhere",
-            "clientStatus": "aktivní",
+            "clientStatus": "aktivni",
             "email": "zeal@test.com",
             "id": "3",
             "invoices": [
@@ -120,11 +120,11 @@
                     "dueDate": "2022-10-06",
                     "id": "5",
                     "invoiceNumber": "12348",
-                    "invoiceStatus": "odesláno",
+                    "invoiceStatus": "neuhrazeno",
                     "issueDate": "2022-07-06",
                     "lineItems": [
                         {
-                            "amount": 1000000,
+                            "amount": 1030000,
                             "description": "Website Development",
                             "id": "1",
                             "quantity": 1
@@ -163,7 +163,7 @@
         {
             "client": {
                 "city": "Somewhereville",
-                "clientStatus": "aktivní",
+                "clientStatus": "aktivni",
                 "email": "compressed@example.com",
                 "id": "1",
                 "name": "Compressed.fm",
@@ -199,7 +199,7 @@
         {
             "client": {
                 "city": "Somewhereville",
-                "clientStatus": "aktivní",
+                "clientStatus": "aktivni",
                 "email": "compressed@example.com",
                 "id": "1",
                 "name": "Compressed.fm",

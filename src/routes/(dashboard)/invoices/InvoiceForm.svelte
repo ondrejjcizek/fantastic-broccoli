@@ -47,7 +47,6 @@
     const RemoveLineItem = (event: CustomEvent) => {
         invoice.lineItems =
             invoice?.lineItems && invoice.lineItems.filter((item) => item.id !== event.detail);
-        console.log('remove line item');
     };
 
     const UpdateLineItem = () => {

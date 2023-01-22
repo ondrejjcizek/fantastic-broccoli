@@ -1,4 +1,4 @@
-import type { Invoice, LineItem } from 'src/global';
+import type { Invoice, LineItem } from '../../global';
 
 /**
  * Takes all the line items and adds them up

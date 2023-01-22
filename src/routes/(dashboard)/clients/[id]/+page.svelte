@@ -11,9 +11,11 @@
     import SlidePanel from '$components/SlidePanel.svelte';
     import ClientForm from '../ClientForm.svelte';
     import Edit from '$components/Icon/Edit.svelte';
+    import type { Client } from '../../../../global';
+    import { InvoiceStatus } from '../../../../enums';
+    import { isLate } from '$lib/utils/dateHelpers';
 
-    export let data;
-    console.log({ data });
+    export let data: { client: Client };
 
     let isClientFormShowing: boolean = false;
     let isEditingCurrentClient: boolean = false;
@@ -29,6 +31,42 @@
 
     const closePanel = () => {
         isClientFormShowing = false;
+    };
+
+    const getDraft = (): string => {
+        if (!data.client.invoices || data.client.invoices.length < 1) return '0.00';
+        const draftInvoices = data.client.invoices.filter(
+            (invoice) => invoice.invoiceStatus === InvoiceStatus.draft
+        );
+
+        return String(sumInvoices(draftInvoices));
+    };
+
+    const getPaid = (): string => {
+        if (!data.client.invoices || data.client.invoices.length < 1) return '0.00';
+        const paidInvoices = data.client.invoices.filter(
+            (invoice) => invoice.invoiceStatus === InvoiceStatus.paid
+        );
+
+        return String(sumInvoices(paidInvoices));
+    };
+
+    const getTotalOverdue = (): string => {
+        if (!data.client.invoices || data.client.invoices.length < 1) return '0.00';
+        const paidInvoices = data.client.invoices.filter(
+            (invoice) => invoice.invoiceStatus === InvoiceStatus.unpaid && isLate(invoice.dueDate)
+        );
+
+        return String(sumInvoices(paidInvoices));
+    };
+
+    const getTotalOutstanding = (): string => {
+        if (!data.client.invoices || data.client.invoices.length < 1) return '0.00';
+        const paidInvoices = data.client.invoices.filter(
+            (invoice) => invoice.invoiceStatus === InvoiceStatus.unpaid && !isLate(invoice.dueDate)
+        );
+
+        return String(sumInvoices(paidInvoices));
     };
 </script>
 
@@ -58,7 +96,7 @@
 </div>
 
 <div class="mb-7 flex w-full items-center justify-between">
-    <h1 class="font-sansSerif text-3xl font-bold text-daisyBush">Compressed.fm</h1>
+    <h1 class="font-sansSerif text-3xl font-bold text-daisyBush">{data.client.name}</h1>
     <Button
         label="Upravit"
         isAnimated={false}
@@ -70,44 +108,46 @@
 
 <div class="mb-10 grid grid-cols-1 gap-4 rounded-lg bg-gallery py-7 px-10 lg:grid-cols-4">
     <div class="summary-block">
-        <div class="label">Total Overdue</div>
-        <div class="number"><sup>$</sup>300.00</div>
+        <div class="label">Po splatnosti</div>
+        <div class="number">{getTotalOverdue()} Kč</div>
     </div>
 
     <div class="summary-block">
-        <div class="label">Total Outstanding</div>
-        <div class="number"><sup>$</sup>300.00</div>
+        <div class="label">Neuhrazeno</div>
+        <div class="number">{getTotalOutstanding()} Kč</div>
     </div>
 
     <div class="summary-block">
-        <div class="label">Total Draft</div>
-        <div class="number"><sup>$</sup>300.00</div>
+        <div class="label">Kocepty</div>
+        <div class="number">{getDraft()} Kč</div>
     </div>
 
     <div class="summary-block">
-        <div class="label">Total Paid</div>
-        <div class="number"><sup>$</sup>300.00</div>
+        <div class="label">Uhrazeno</div>
+        <div class="number">{getPaid()} Kč</div>
     </div>
 </div>
 
 <!-- list of invoices -->
 <div>
     <!-- invoices -->
-    {#if data.client.invoices === null}
-        Loading ...
-    {:else if data.client.invoices.length <= 0}
-        <BlankState />
-    {:else}
-        <InvoiceRowHeader className="text-daisyBush" />
-        <div class="flex flex-col-reverse">
-            {#each data.client.invoices as invoice}
-                <InvoiceRow {invoice} />
-            {/each}
-        </div>
-        <CircledAmount
-            label="Celkem"
-            amount={`${addThousandsSeparator(sumInvoices(data.client.invoices))} Kč`}
-        />
+    {#if data.client.invoices}
+        {#if data.client.invoices === null}
+            Loading ...
+        {:else if data.client.invoices.length <= 0}
+            <BlankState />
+        {:else}
+            <InvoiceRowHeader className="text-daisyBush" />
+            <div class="flex flex-col-reverse">
+                {#each data.client.invoices as invoice}
+                    <InvoiceRow {invoice} />
+                {/each}
+            </div>
+            <CircledAmount
+                label="Celkem"
+                amount={`${addThousandsSeparator(sumInvoices(data.client.invoices))} Kč`}
+            />
+        {/if}
     {/if}
 </div>
 
@@ -135,6 +175,6 @@
     }
 
     .number {
-        @apply truncate text-[2.5rem] font-black text-purple;
+        @apply text-[2rem] font-black text-purple xl:text-[2.5rem];
     }
 </style>

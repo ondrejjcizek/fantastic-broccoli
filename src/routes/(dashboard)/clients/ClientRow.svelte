@@ -96,7 +96,7 @@
                             client.clientStatus = ClientStatus.active;
                             isAdditionalMenuShowing = false;
                         },
-                        disabled: client.clientStatus === 'aktivní'
+                        disabled: client.clientStatus === ClientStatus.active
                     },
                     {
                         label: 'Archivovat',
