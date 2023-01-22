@@ -1,11 +1,15 @@
+import type { Action } from 'svelte/action';
 import { spring } from 'svelte/motion';
 
-interface SwipeProps {}
+interface SwipeProps {
+    triggerReset?: boolean;
+}
 
-export function swipe(node: HTMLElement, params: SwipeProps) {
+export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
     let x: number;
     let startingX: number;
     const elementWidth = node.clientWidth;
+    let triggerReset = params?.triggerReset || false;
 
     const coordinates = spring(
         { x: 0, y: 0 },
@@ -28,6 +32,18 @@ export function swipe(node: HTMLElement, params: SwipeProps) {
         window.addEventListener('mouseup', handleMouseUp);
     }
 
+    function resetCard() {
+        coordinates.update(() => {
+            return { x, y: 0 };
+        });
+
+        triggerReset = false;
+    }
+
+    function outOfView() {
+        node.dispatchEvent(new CustomEvent('outOfView'));
+    }
+
     function handleMouseMove(event: MouseEvent) {
         // Delta x = difference from where we clicked vs where we are currently.
         const dx = event.clientX - x;
@@ -40,7 +56,7 @@ export function swipe(node: HTMLElement, params: SwipeProps) {
         });
     }
 
-    function updateCoordinates(x) {
+    function updateCoordinates(x: number) {
         coordinates.update(() => {
             return { x, y: 0 };
         });
@@ -54,14 +70,12 @@ export function swipe(node: HTMLElement, params: SwipeProps) {
         // swiped left
         if (movement > 20) {
             x = leftSnapX;
-            updateCoordinates(x);
-        }
-
-        //swiped left
-        if (movement < 20) {
+            outOfView();
+        } // swiped right
+        else {
             x = rightSnapX;
-            updateCoordinates(x);
         }
+        updateCoordinates(x);
     }
 
     function handleMouseUp(event: MouseEvent) {
@@ -72,9 +86,13 @@ export function swipe(node: HTMLElement, params: SwipeProps) {
     }
 
     return {
-        update() {},
+        update(newParams: SwipeProps) {
+            if (newParams.triggerReset) {
+                resetCard();
+            }
+        },
         destroy() {
             node.removeEventListener('mousedown', handleMouseDown);
         }
     };
-}
+};
