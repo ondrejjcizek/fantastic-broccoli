@@ -5,7 +5,7 @@
         alertMessage = 'Byli jste úspěšně odhlášeni!';
 </script>
 
-<h1 class="mb-4 text-[2.5rem] font-black text-goldenFizz">Přihlášení</h1>
+<h1 class="auth-heading">Přihlášení</h1>
 
 <form>
     <Alert message={alertMessage} />
@@ -17,7 +17,7 @@
     <div class="field">
         <div class="flex justify-between">
             <label for="password" class="text-goldenFizz">Heslo</label>
-            <a href="/forgot-passsword" class="text-sm text-white underline hover:no-underline"
+            <a href="/forgot-password" class="text-sm text-white underline hover:no-underline"
                 >Zapomenuté heslo?</a
             >
         </div>
@@ -25,12 +25,7 @@
     </div>
 
     <div class="field">
-        <button
-            type="submit"
-            class="mt-6 min-h-[3.5rem] w-full rounded-lg bg-robinEggBlue py-3 px-4 text-xl font-bold text-daisyBush transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
-        >
-            Pojďme na to!
-        </button>
+        <button type="submit" class="auth-button"> Pojďme na to! </button>
         <p class="mt-4 text-center text-sm text-white">
             <a href="/signup" class="underline hover:no-underline">Ještě nemáte účet?</a>
         </p>
