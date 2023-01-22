@@ -23,21 +23,23 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
         node.style.transform = `translate3d(${$coords.x}px, 0, 0)`;
     });
 
-    if (isMobileBreakpoint()) {
-        node.addEventListener('mousedown', handleMouseDown);
-    }
-
-    // listeing for browser resize
-    window.addEventListener('resize', () => {
+    function setupEventListeners() {
         if (isMobileBreakpoint()) {
             node.addEventListener('mousedown', handleMouseDown);
+            node.addEventListener('touchstart', handleTouchStart);
         } else {
             node.removeEventListener('mousedown', handleMouseDown);
+            node.removeEventListener('touchstart', handleTouchStart);
         }
 
         // update the card width
         elementWidth = node.clientWidth;
-    });
+    }
+
+    setupEventListeners();
+
+    // listeing for browser resize
+    window.addEventListener('resize', () => {});
 
     function isMobileBreakpoint() {
         const mediaQuery = window.matchMedia('(max-width: 1024px)');
@@ -61,8 +63,28 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
         window.addEventListener('mouseup', handleMouseUp);
     }
 
+    function handleTouchStart(event: TouchEvent) {
+        x = event.touches[0].clientX;
+        startingX = event.touches[0].clientX;
+        window.addEventListener('touchmove', handleTouchMove);
+        window.addEventListener('touchend', handleTouchEnd);
+    }
+
     function outOfView() {
         node.dispatchEvent(new CustomEvent('outOfView'));
+    }
+
+    function handleTouchMove(event: TouchEvent) {
+        const dx = event.touches[0].clientX - x;
+        x = event.touches[0].clientX;
+        updateCoordinates(dx);
+    }
+
+    function handleTouchEnd(event: TouchEvent) {
+        const endingX = event.changedTouches[0].clientX;
+        moveCardOver(endingX);
+        window.addEventListener('touchmove', handleTouchMove);
+        window.addEventListener('touchend', handleTouchEnd);
     }
 
     function handleMouseMove(event: MouseEvent) {
@@ -77,7 +99,16 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
         });
     }
 
-    function updateCoordinates(x: number) {
+    function updateCoordinates(dx: number) {
+        coordinates.update(($coords) => {
+            return {
+                x: $coords.x + dx,
+                y: 0
+            };
+        });
+    }
+
+    function setXCoordinates(x: number) {
         coordinates.update(() => {
             return { x, y: 0 };
         });
@@ -96,7 +127,7 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
         else {
             x = rightSnapX;
         }
-        updateCoordinates(x);
+        setXCoordinates(x);
     }
 
     function handleMouseUp(event: MouseEvent) {
@@ -114,6 +145,7 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
         },
         destroy() {
             node.removeEventListener('mousedown', handleMouseDown);
+            node.removeEventListener('touchstart', handleTouchStart);
         }
     };
 };
