@@ -4,19 +4,41 @@
     import Check from '$components/Icon/Check.svelte';
     import { states } from '$utils/states';
     import type { Client } from '../../../global';
-    import { addClient } from '$stores/ClientStore';
+    import { addClient, updateClient } from '$stores/ClientStore';
+    import { snackbar } from '$stores/SnackbarStore';
 
     export let client: Client = {} as Client;
 
+    export let formStatus: 'create' | 'edit' = 'create';
+
     const handleSubmit = () => {
-        addClient(client);
+        if (formStatus === 'create') {
+            addClient(client);
+            snackbar.send({
+                message: 'Nový klient byl úspěšně vytvořen',
+                type: 'success'
+            });
+        } else {
+            updateClient(client);
+            snackbar.send({
+                message: 'Klient byl úspěšně upraven',
+                type: 'success'
+            });
+        }
         closePanel();
     };
 
     export let closePanel: () => void = () => {};
 </script>
 
-<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Přidat klienta</h2>
+<h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">
+    {#if formStatus === 'create'}
+        Přidat <!-- content here -->
+    {:else}
+        Editace
+    {/if}
+    klienta
+</h2>
 
 <form class="grid grid-cols-6 gap-x-5" on:submit|preventDefault={handleSubmit}>
     <div class="field col-span-6">

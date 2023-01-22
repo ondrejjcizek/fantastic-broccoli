@@ -10,10 +10,18 @@
     import type { Client } from '../../../global';
     import { ClientStatus } from '../../../enums';
     import { sumInvoices } from '$lib/utils/moneyHelpers';
+    import ClientForm from './ClientForm.svelte';
+    import SlidePanel from '$components/SlidePanel.svelte';
 
     export let client: Client;
 
     let isAdditionalMenuShowing = false;
+
+    let isClientFormShowing = false;
+
+    const closePanel = () => {
+        isClientFormShowing = false;
+    };
 
     const recievedInvoices = () => {
         // find invoices that have been paid
@@ -39,6 +47,11 @@
             return sumInvoices(paidInvoices);
         }
         return 0;
+    };
+
+    const handleEdit = () => {
+        isClientFormShowing = true;
+        isAdditionalMenuShowing = false;
     };
 </script>
 
@@ -73,7 +86,7 @@
                     {
                         label: 'Upravit',
                         icon: Edit,
-                        onClick: () => console.log('editing'),
+                        onClick: handleEdit,
                         disabled: false
                     },
                     {
@@ -105,6 +118,12 @@
         {/if}
     </div>
 </div>
+
+{#if isClientFormShowing}
+    <SlidePanel on:closePanel={closePanel}>
+        <ClientForm {closePanel} formStatus="edit" {client} />
+    </SlidePanel>
+{/if}
 
 <style lang="postcss">
     .client-row {
