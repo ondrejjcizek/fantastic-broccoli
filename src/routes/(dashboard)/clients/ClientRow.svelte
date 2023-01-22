@@ -67,7 +67,7 @@
         {balanceInvoices()} Kč
     </div>
     <div class="view relative hidden items-center justify-center lg:flex">
-        <a href="#" class="text-pastelPurple hover:text-daisyBush">
+        <a href={`/clients/${client.id}`} class="text-pastelPurple hover:text-daisyBush">
             <View />
         </a>
     </div>
