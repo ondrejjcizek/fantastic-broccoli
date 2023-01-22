@@ -12,7 +12,6 @@
     import { sumInvoices } from '$lib/utils/moneyHelpers';
 
     export let client: Client;
-    console.log({ client });
 
     let isAdditionalMenuShowing = false;
 

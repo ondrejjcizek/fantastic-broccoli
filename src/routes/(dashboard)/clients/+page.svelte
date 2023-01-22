@@ -6,6 +6,14 @@
     import { clients, loadClients } from '$lib/stores/ClientStore';
     import { onMount } from 'svelte';
     import BlankState from './BlankState.svelte';
+    import SlidePanel from '$components/SlidePanel.svelte';
+    import ClientForm from './ClientForm.svelte';
+
+    let isClientFormShowing = false;
+
+    const closePanel = () => {
+        isClientFormShowing = false;
+    };
 
     onMount(() => {
         loadClients();
@@ -31,7 +39,7 @@
         <Button
             label="Přidat klienta"
             onClick={() => {
-                // isInvoiceFormShowing = true;
+                isClientFormShowing = true;
             }}
         />
     </div>
@@ -55,3 +63,9 @@
         </div>
     {/if}
 </div>
+
+{#if isClientFormShowing}
+    <SlidePanel on:closePanel={closePanel}>
+        <ClientForm {closePanel} />
+    </SlidePanel>
+{/if}
