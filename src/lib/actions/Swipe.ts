@@ -14,8 +14,8 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
     const coordinates = spring(
         { x: 0, y: 0 },
         {
-            stiffness: 0.2,
-            damping: 0.4
+            stiffness: 0.1,
+            damping: 0.6
         }
     );
 
