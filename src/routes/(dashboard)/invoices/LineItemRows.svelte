@@ -2,7 +2,7 @@
     import { createEventDispatcher } from 'svelte';
     import Button from '$components/Button.svelte';
     import CircledAmount from '$components/CircledAmount.svelte';
-    import type { LineItem } from '../../../global';
+    import type { LineItem } from '$global';
     import LineItemRow from './LineItemRow.svelte';
     import { addThousandsSeparator, sumLineItems } from '$lib/utils/moneyHelpers';
 

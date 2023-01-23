@@ -1,8 +1,7 @@
 import supabase from '$utils/supabase';
 import { writable } from 'svelte/store';
 import { ClientStatus } from '../../enums';
-import type { Client } from '../../global';
-import data from '../../seed.json';
+import type { Client } from '$global';
 
 export const clients = writable<Client[]>([]);
 

@@ -1,7 +1,7 @@
 <script lang="ts">
     import Button from '$components/Button.svelte';
     import { convertDate } from '$lib/utils/dateHelpers';
-    import type { Invoice } from 'src/global';
+    import type { Invoice } from '$global';
     import LineItemRows from '../LineItemRows.svelte';
     import { settings, loadSettings } from '$lib/stores/Settings';
     import { onMount } from 'svelte';
@@ -80,7 +80,7 @@
             </p>
         {:else}
             <div class="center min-h-[68px] rounded bg-gallery">
-                <a href="" class="text-stone-600 underline hover:no-underline"
+                <a href="#todo" class="text-stone-600 underline hover:no-underline"
                     >Add your contact infromation.</a
                 >
             </div>

@@ -29,7 +29,8 @@ const config = {
             $utils: './src/lib/utils',
             $components: './src/lib/components',
             $stores: './src/lib/stores',
-            $actions: './src/lib/actions'
+            $actions: './src/lib/actions',
+            $global: './src/global.d.ts'
         }
     }
 };

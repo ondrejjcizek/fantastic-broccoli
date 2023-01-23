@@ -11,7 +11,7 @@
     import SlidePanel from '$components/SlidePanel.svelte';
     import ClientForm from '../ClientForm.svelte';
     import Edit from '$components/Icon/Edit.svelte';
-    import type { Client } from '../../../../global';
+    import type { Client } from '$global';
     import { InvoiceStatus } from '../../../../enums';
     import { isLate } from '$lib/utils/dateHelpers';
 

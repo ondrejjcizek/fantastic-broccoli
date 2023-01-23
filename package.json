@@ -40,6 +40,7 @@
     "dependencies": {
         "@supabase/supabase-js": "^2.4.1",
         "@types/uuid": "^9.0.0",
+        "postcss-import": "^15.1.0",
         "svelte-markdown": "^0.2.3",
         "uuid": "^9.0.0"
     }

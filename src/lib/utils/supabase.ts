@@ -1,8 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { env } from '$env/dynamic/public';
 
-console.log(env);
-
 const supabaseUrl = env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = env.PUBLIC_SUPABASE_ANON_KEY;
 

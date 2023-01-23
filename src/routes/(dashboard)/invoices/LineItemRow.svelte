@@ -1,7 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
     import Trash from '$components/Icon/Trash.svelte';
-    import type { LineItem } from '../../../global';
+    import type { LineItem } from '$global';
     import { twoDecimals } from '$lib/utils/moneyHelpers';
 
     export let lineItem: LineItem;

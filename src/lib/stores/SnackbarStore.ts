@@ -1,4 +1,4 @@
-import type { NotificationType, Snackbar } from '../../global';
+import type { NotificationType, Snackbar } from '$global';
 import { writable } from 'svelte/store';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,7 +10,7 @@ const newSnackbar = () => {
         update((store) => [...store, newContent]);
     }
 
-    function remove(id: string | null) {
+    function remove(id?: string | null) {
         update((store) => {
             if (id) return store.filter((item) => item.id !== id);
             const [, ...rest] = store;

@@ -3,7 +3,7 @@
     import Trash from '$components/Icon/Trash.svelte';
     import Check from '$components/Icon/Check.svelte';
     import { states } from '$utils/states';
-    import type { Client } from '../../../global';
+    import type { Client } from '$global';
     import { addClient, updateClient } from '$stores/ClientStore';
     import { snackbar } from '$stores/SnackbarStore';
 

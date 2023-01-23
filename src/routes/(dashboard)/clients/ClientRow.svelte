@@ -6,11 +6,10 @@
     import Edit from '$components/Icon/Edit.svelte';
     import Trash from '$components/Icon/Trash.svelte';
     import Cancel from '$components/Icon/Cancel.svelte';
-    import Send from '$components/Icon/Send.svelte';
     import Activate from '$components/Icon/Activate.svelte';
     import Archive from '$components/Icon/Archive.svelte';
     import Tag from '$components/Tag.svelte';
-    import type { Client } from '../../../global';
+    import type { Client } from '$global';
     import { ClientStatus } from '../../../enums';
     import { sumInvoices } from '$lib/utils/moneyHelpers';
     import ClientForm from './ClientForm.svelte';

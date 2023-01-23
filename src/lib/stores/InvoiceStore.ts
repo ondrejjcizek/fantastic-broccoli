@@ -1,6 +1,5 @@
-import type { Invoice } from '../../global';
+import type { Invoice } from '$global';
 import { writable } from 'svelte/store';
-import data from '../../seed.json';
 import supabase from '$utils/supabase';
 
 export const invoices = writable<Invoice[]>([]);

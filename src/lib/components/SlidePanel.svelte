@@ -7,15 +7,15 @@
     import { clickOutside } from '$actions/ClickOutside';
 
     const dispatch = createEventDispatcher();
-</script>
 
-<svelte:window
-    on:keydown={(event) => {
+    const keyDown = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
             dispatch('close');
         }
-    }}
-/>
+    };
+</script>
+
+<svelte:window on:keydown={keyDown} />
 
 <Portal>
     <Overlay />

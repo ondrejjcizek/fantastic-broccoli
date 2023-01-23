@@ -4,7 +4,7 @@
     import { v4 as uuidv4 } from 'uuid';
     import Button from '$components/Button.svelte';
     import Trash from '$components/Icon/Trash.svelte';
-    import type { Client, Invoice, LineItem } from '../../../global';
+    import type { Client, Invoice, LineItem } from '$global';
     import LineItemRows from './LineItemRows.svelte';
     import { states } from '$utils/states';
     import { onMount } from 'svelte';
@@ -20,16 +20,14 @@
         amount: 0
     };
 
-    let lineItems: LineItem[] = [{ ...blankLineItem }];
+    // let lineItems: LineItem[] = [{ ...blankLineItem }];
     let isNewClient: boolean = false;
 
-    // As a magic array of TS, must be types as whole
     export let invoice: Invoice = {
         client: {} as Client,
         lineItems: [{ ...blankLineItem }] as LineItem[]
     } as Invoice;
 
-    // As a magic array of TS, must be types as whole
     let newClient: Partial<Client> = {};
 
     export let formState: 'create' | 'edit' = 'create';
@@ -38,7 +36,7 @@
 
     let isModalShowing = false;
 
-    const initialDiscount = invoice.discount || 0;
+    // const initialDiscount = invoice.discount || 0;
 
     const AddLineItem = () => {
         invoice.lineItems = [...(invoice.lineItems as []), { ...blankLineItem, id: uuidv4() }];

@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { Settings } from '../../global';
+import type { Settings } from '$global';
 
 import data from '../../seed.json';
 

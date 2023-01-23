@@ -50,7 +50,7 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
 
     function resetCard() {
         coordinates.update(() => {
-            return { x, y: 0 };
+            return { x: 0, y: 0 };
         });
 
         triggerReset = false;
@@ -83,8 +83,8 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
     function handleTouchEnd(event: TouchEvent) {
         const endingX = event.changedTouches[0].clientX;
         moveCardOver(endingX);
-        window.addEventListener('touchmove', handleTouchMove);
-        window.addEventListener('touchend', handleTouchEnd);
+        window.removeEventListener('touchmove', handleTouchMove);
+        window.removeEventListener('touchend', handleTouchEnd);
     }
 
     function handleMouseMove(event: MouseEvent) {

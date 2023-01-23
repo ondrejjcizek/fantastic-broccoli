@@ -1,3 +1,3 @@
 import supabase from '$utils/supabase';
 
-console.log(supabase);
+// console.log(supabase);

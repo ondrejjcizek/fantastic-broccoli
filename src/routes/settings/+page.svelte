@@ -6,7 +6,7 @@
     import { settings, loadSettings } from '$stores/Settings';
     import { states } from '$utils/states';
     import { onMount } from 'svelte';
-    import type { Settings } from '../../global';
+    import type { Settings } from '$global';
 
     let mySettings: Settings = {} as Settings;
 
