@@ -57,7 +57,7 @@
                 <a href="/settings" class:active={$page.url.pathname === '/settings'}>Nastavení</a>
             </li>
             <li>
-                <a href="#">Odhlásit</a>
+                <a href="#todo">Odhlásit</a>
             </li>
         </ul>
     </nav>
