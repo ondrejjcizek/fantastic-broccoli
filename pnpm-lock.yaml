@@ -10,6 +10,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.48.2
   autoprefixer: ^10.4.13
   date-fns: ^2.29.3
+  dotenv: ^16.0.3
   eslint: ^8.32.0
   eslint-config-prettier: ^8.6.0
   eslint-plugin-svelte3: ^4.0.0
@@ -42,6 +43,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.48.2_7uibuqfxkfaozanbtbziikiqje
   autoprefixer: 10.4.13_postcss@8.4.21
   date-fns: 2.29.3
+  dotenv: 16.0.3
   eslint: 8.32.0
   eslint-config-prettier: 8.6.0_eslint@8.32.0
   eslint-plugin-svelte3: 4.0.0_tmo5zkisvhu6htudosk5k7m6pu
@@ -955,6 +957,11 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
+    dev: true
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: true
 
   /electron-to-chromium/1.4.284:
