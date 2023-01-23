@@ -30,8 +30,8 @@
 
     const recievedInvoices = () => {
         // find invoices that have been paid
-        if (client?.invoices) {
-            const paidInvoices = client.invoices.filter(
+        if (client?.invoice) {
+            const paidInvoices = client.invoice.filter(
                 (invoice) => invoice.invoiceStatus === 'uhrazeno'
             );
 
@@ -42,9 +42,9 @@
     };
 
     const balanceInvoices = () => {
-        if (client?.invoices) {
+        if (client?.invoice) {
             // find invoices that have NOT been paid
-            const paidInvoices = client.invoices.filter(
+            const paidInvoices = client.invoice.filter(
                 (invoice) => invoice.invoiceStatus !== 'uhrazeno'
             );
 

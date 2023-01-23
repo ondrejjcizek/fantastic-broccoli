@@ -9,7 +9,6 @@ export const loadInvoices = async () => {
     const { data, error } = await supabase
         .from('invoice')
         .select('*, client(id, name), lineItems(*)');
-    console.log(data);
     if (error) {
         console.error(error);
         return;
@@ -41,8 +40,10 @@ export const getInvoiceById = async (id: string) => {
         .from('invoice')
         .select('*, client(id, name), lineItems(*)')
         .eq('id', id);
+
     if (error) {
         console.error(error);
+        return;
     }
     if (data && data[0]) return data[0] as Invoice;
     console.warn('cannot find invoice with id' + id);
