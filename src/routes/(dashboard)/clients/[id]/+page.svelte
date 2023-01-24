@@ -87,7 +87,7 @@
     <!-- new invoice button -->
     <div>
         <Button
-            label="+ klienta"
+            label="Přidat klienta"
             onClick={() => {
                 isClientFormShowing = true;
             }}

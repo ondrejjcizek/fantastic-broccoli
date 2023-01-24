@@ -2,6 +2,7 @@ import supabase from '$utils/supabase';
 import { writable } from 'svelte/store';
 import { ClientStatus } from '../../enums';
 import type { Client } from '$global';
+import { snackbar } from '$stores/SnackbarStore';
 
 export const clients = writable<Client[]>([]);
 
@@ -17,11 +18,25 @@ export const loadClients = async () => {
 
     clients.set(data as Client[]);
 };
+// null value in column "userId" of relation "client" violates not-null constraint
+export const addClient = async (clientToAdd: Client) => {
+    const { data, error } = await supabase
+        .from('client')
+        .insert([{ ...clientToAdd, clientStatus: ClientStatus.active }])
+        .select();
 
-export const addClient = (clientToAdd: Client) => {
+    if (error) {
+        console.log(data);
+        console.error(error);
+        snackbar.send({ message: error.message, type: 'error' });
+        return;
+    }
+
+    const id = data[0].id;
+
     clients.update((prev: Client[]) => [
         ...prev,
-        { ...clientToAdd, clientStatus: ClientStatus.active }
+        { ...clientToAdd, clientStatus: ClientStatus.active, id: id }
     ]);
     return clientToAdd;
 };
