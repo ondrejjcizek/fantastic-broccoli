@@ -1,8 +1,8 @@
 import supabase from '$utils/supabase';
 import { writable } from 'svelte/store';
 import { ClientStatus } from '../../enums';
-import type { Client } from '$global';
-import { snackbar } from '$stores/SnackbarStore';
+import type { Client, Error } from '$global';
+import { displayErrorMessage } from '$utils/handleError';
 
 export const clients = writable<Client[]>([]);
 
@@ -26,9 +26,7 @@ export const addClient = async (clientToAdd: Client) => {
         .select();
 
     if (error) {
-        console.log(data);
-        console.error(error);
-        snackbar.send({ message: error.message, type: 'error' });
+        displayErrorMessage(error as Error);
         return;
     }
 

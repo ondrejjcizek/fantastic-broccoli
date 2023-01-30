@@ -33,6 +33,7 @@ interface Client {
     state?: string;
     street?: string;
     zip?: string;
+    // userId: string;
     invoice?: Invoice[];
 }
 
@@ -51,4 +52,12 @@ interface Snackbar {
     id: string;
     message: string;
     type: NotificationType;
+}
+
+interface Error {
+    name: string;
+    code: string;
+    details: string;
+    hint: string;
+    message: string;
 }

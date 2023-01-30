@@ -7,6 +7,7 @@
     import { addClient, updateClient } from '$stores/ClientStore';
     import { snackbar } from '$stores/SnackbarStore';
 
+    // export let client: Client = { userId: '420d19e3-056e-41c9-89a6-1ded2c7c85cf' } as Client;
     export let client: Client = {} as Client;
 
     export let formStatus: 'create' | 'edit' = 'create';
