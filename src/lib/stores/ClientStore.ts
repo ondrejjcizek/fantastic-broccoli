@@ -3,6 +3,7 @@ import { writable } from 'svelte/store';
 import { ClientStatus } from '../../enums';
 import type { Client, Error } from '$global';
 import { displayErrorMessage } from '$utils/handleError';
+import { snackbar } from '$lib/stores/SnackbarStore';
 
 export const clients = writable<Client[]>([]);
 
@@ -31,6 +32,11 @@ export const addClient = async (clientToAdd: Client) => {
     }
 
     const id = data[0].id;
+
+    snackbar.send({
+        message: 'Nový klient byl úspěšně vytvořen',
+        type: 'success'
+    });
 
     clients.update((prev: Client[]) => [
         ...prev,

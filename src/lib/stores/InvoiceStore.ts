@@ -2,6 +2,7 @@ import type { Invoice, Error, LineItem } from '$global';
 import { writable } from 'svelte/store';
 import supabase from '$utils/supabase';
 import { displayErrorMessage } from '$utils/handleError';
+import { snackbar } from '$lib/stores/SnackbarStore';
 
 export const invoices = writable<Invoice[]>([]);
 
@@ -23,8 +24,6 @@ export const addInvoice = async (invoiceToAdd: Invoice) => {
         .from('invoice')
         .insert([{ ...newInvoice, clientId: client.id }])
         .select();
-
-    console.log(invoiceResults.error);
 
     if (invoiceResults.error) {
         displayErrorMessage(invoiceResults.error as Error);
@@ -52,6 +51,7 @@ export const addInvoice = async (invoiceToAdd: Invoice) => {
 
     // update the store
     invoices.update((prev: Invoice[]) => [...prev, { ...invoiceToAdd, id: invoiceId }]);
+    snackbar.send({ message: 'Vaše faktura byla úspéšně vytvořena', type: 'success' });
     return invoiceToAdd;
 };
 
