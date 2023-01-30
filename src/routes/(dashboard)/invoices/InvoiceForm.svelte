@@ -53,13 +53,14 @@
     const handleSubmit = async () => {
         if (isNewClient) {
             invoice.client = newClient as Client;
-            addClient(newClient as Client);
-        } else {
-            updateInvoice(invoice);
+            const addedClient = await addClient(newClient as Client);
+            invoice.client.id = addedClient?.id;
         }
 
         if (formState === 'create') {
             await addInvoice(invoice);
+        } else {
+            await updateInvoice(invoice);
         }
 
         closePanel();

@@ -88,28 +88,29 @@
     </div>
 
     <div class="col-span-6 print:col-span-3 sm:col-span-3">
-        <div class="label">Bill to:</div>
+        <div class="label">Odběratel:</div>
         <p>
-            <strong>{data.invoice.client.name}</strong><br />
-            {data.invoice.client.email}<br />
-            {data.invoice.client.street}<br />
-            {data.invoice.client.city}, {data.invoice.client.state}
-            {data.invoice.client.zip}
+            {#if data.invoice.client.name}<strong>{data.invoice.client.name}</strong><br />{/if}
+            {#if data.invoice.client.email}{data.invoice.client.email}<br />{/if}
+            {#if data.invoice.client.street}{data.invoice.client.street}<br />{/if}
+            {#if data.invoice.client.city}{data.invoice.client.city}, {/if}
+            {#if data.invoice.client.state}{data.invoice.client.state}{/if}
+            {#if data.invoice.client.zip}{data.invoice.client.zip}{/if}
         </p>
     </div>
 
     <div class="col-span-6 sm:col-span-2 sm:col-start-5">
-        <div class="label">Invoice ID</div>
+        <div class="label">Číslo faktury</div>
         <p>{data.invoice.invoiceNumber}</p>
     </div>
 
     <div class="col-span-3">
-        <div class="label">Due Date</div>
+        <div class="label">Splatnost</div>
         <p>{convertDate(data.invoice.dueDate)}</p>
     </div>
 
     <div class="col-span-3 sm:col-span-2 sm:col-start-5">
-        <div class="label">Issue Date</div>
+        <div class="label">Vystaveno</div>
         <p>{convertDate(data.invoice.issueDate)}</p>
     </div>
 

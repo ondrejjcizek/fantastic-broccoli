@@ -42,7 +42,7 @@ export const addClient = async (clientToAdd: Client) => {
         ...prev,
         { ...clientToAdd, clientStatus: ClientStatus.active, id: id }
     ]);
-    return clientToAdd;
+    return { ...clientToAdd, id: id };
 };
 
 export const updateClient = async (clientToUpdate: Client) => {

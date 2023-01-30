@@ -33,6 +33,23 @@ export const addInvoice = async (invoiceToAdd: Invoice) => {
     // get the invoice ID
     const invoiceId = invoiceResults.data[0].id;
 
+    const isSuccessful = await addLineItems(lineItems, invoiceId);
+    if (!isSuccessful) return;
+
+    // update the store
+    invoices.update((prev: Invoice[]) => [...prev, { ...invoiceToAdd, id: invoiceId }]);
+
+    snackbar.send({ message: 'Vaše faktura byla úspéšně vytvořena', type: 'success' });
+
+    return invoiceToAdd;
+};
+
+const addLineItems = async (
+    lineItems: LineItem[] | undefined,
+    invoiceId: string
+): Promise<boolean> => {
+    let isSuccessful = true;
+
     // loop over all the lineItem and add the invoice ID
     if (lineItems && lineItems.length > 0) {
         const newLineItems = lineItems.map((lineItem: LineItem) => ({
@@ -44,21 +61,59 @@ export const addInvoice = async (invoiceToAdd: Invoice) => {
         const lineItemsResult = await supabase.from('lineItems').insert(newLineItems);
 
         if (lineItemsResult.error) {
+            console.log('updatovani');
             displayErrorMessage(lineItemsResult.error as Error);
-            return;
+            isSuccessful = false;
         }
     }
 
-    // update the store
-    invoices.update((prev: Invoice[]) => [...prev, { ...invoiceToAdd, id: invoiceId }]);
-    snackbar.send({ message: 'Vaše faktura byla úspéšně vytvořena', type: 'success' });
-    return invoiceToAdd;
+    return isSuccessful;
 };
 
-export const updateInvoice = (invoiceToUpdate: Invoice) => {
+const deleteLineItems = async (invoiceId: string): Promise<boolean> => {
+    let isSuccessful = true;
+
+    const { data, error } = await supabase.from('lineItems').delete().eq('invoiceId', invoiceId);
+
+    if (error) {
+        console.log('mazani');
+        displayErrorMessage(error as Error);
+        isSuccessful = false;
+    }
+
+    return isSuccessful;
+};
+
+export const updateInvoice = async (invoiceToUpdate: Invoice) => {
+    const { lineItems, client, ...updatedInvoice } = invoiceToUpdate;
+
+    // delete all line items
+    let isSuccessful = await deleteLineItems(invoiceToUpdate.id);
+    if (!isSuccessful) return;
+
+    // add new line items
+    isSuccessful = await addLineItems(lineItems, invoiceToUpdate.id);
+    if (!isSuccessful) return;
+
+    // update the invoice within supabase
+    const { data, error } = await supabase
+        .from('invoice')
+        .update({ ...updatedInvoice, clientId: client.id })
+        .eq('id', updatedInvoice.id);
+
+    if (error) {
+        displayErrorMessage(error as Error);
+        return;
+    }
+
+    // update the store
     invoices.update((prev: Invoice[]) =>
         prev.map((cur: Invoice) => (cur.id === invoiceToUpdate.id ? invoiceToUpdate : cur))
     );
+
+    // display a success message
+    snackbar.send({ message: 'Vaše faktura byla úspěšně upravena', type: 'success' });
+
     return invoiceToUpdate;
 };
 
