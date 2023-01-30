@@ -2,7 +2,6 @@
     import Button from '$components/Button.svelte';
     import Modal from '$components/Modal.svelte';
     import { deleteInvoice } from '$lib/stores/InvoiceStore';
-    import { snackbar } from '$lib/stores/SnackbarStore';
     import { sumLineItems } from '$lib/utils/moneyHelpers';
     import type { Invoice } from '$global';
     import { createEventDispatcher } from 'svelte';
@@ -10,6 +9,11 @@
     export let invoice: Invoice;
     export let isModalShowing = false;
     const dispatch = createEventDispatcher();
+
+    const handleDelete = async () => {
+        await deleteInvoice(invoice);
+        dispatch('close');
+    };
 </script>
 
 <Modal isVisible={isModalShowing} on:close>
@@ -33,14 +37,7 @@
             <Button
                 isAnimated={false}
                 label="Ano, vymazat"
-                onClick={() => {
-                    deleteInvoice(invoice);
-                    dispatch('close');
-                    snackbar.send({
-                        message: 'Vaše faktura byla úspéšně vymazána',
-                        type: 'success'
-                    });
-                }}
+                onClick={handleDelete}
                 style="desctructive"
             />
         </div>

@@ -29,7 +29,6 @@
     };
 
     const handleEdit = () => {
-        console.log('editing');
         isInvoiceFormShowing = true;
         isAdditionalMenuShowing = false;
     };
