@@ -4,6 +4,7 @@ import { ClientStatus } from '../../enums';
 import type { Client, Error } from '$global';
 import { displayErrorMessage } from '$utils/handleError';
 import { snackbar } from '$lib/stores/SnackbarStore';
+import { deleteClientInvoices } from './InvoiceStore';
 
 export const clients = writable<Client[]>([]);
 
@@ -76,4 +77,29 @@ export const getClientById = async (id: string) => {
     if (data && data[0]) return data[0] as Client;
 
     console.warn('We cannot find a client');
+};
+
+export const deleteClient = async (clientToDelete: Client) => {
+    // delete the associated invoices in Supabase
+    const isSuccessful = await deleteClientInvoices(clientToDelete.id);
+    if (!isSuccessful) return;
+
+    // delete the client within Supabase
+    const { error } = await supabase.from('client').delete().eq('id', clientToDelete.id);
+
+    if (error) {
+        displayErrorMessage(error as Error);
+        return;
+    }
+
+    // update the store
+    clients.update((prev: Client[]) => prev.filter((cur: Client) => cur.id !== clientToDelete.id));
+
+    // display a success message
+    snackbar.send({
+        message: 'Klient byl úspěšně vymazán',
+        type: 'success'
+    });
+
+    return;
 };
